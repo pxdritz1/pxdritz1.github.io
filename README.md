@@ -26,6 +26,13 @@ i work with minecraft mods, development tools, and commissioned artwork. the sit
 - [about](https://pxdritz1.github.io/#about)
 - [contact](https://pxdritz1.github.io/#contact)
 
+## structure
+
+- `src/` contains the React application and its styles.
+- `public/assets/` is the canonical location for images and other static assets.
+- `public/about/`, `public/gallery/`, `public/projects/`, and `public/contact/` keep the old direct URLs working while redirecting to the hash-based app routes.
+- the root `index.html` is the Vite entry point.
+
 ## run locally
 
 ```bash
