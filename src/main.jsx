@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useState } from 'react'
+import { StrictMode, useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
   ArrowUpRight,
@@ -49,7 +49,15 @@ function Avatar({ src, className = '' }) {
 }
 
 function ThemeToggle({ dark, setDark }) {
-  return <button className="rounded-xl p-2 text-ink hover:bg-white/70 dark:hover:bg-white/10" onClick={() => setDark(!dark)} aria-label={dark ? 'switch to light theme' : 'switch to dark theme'} title={dark ? 'light theme' : 'dark theme'}>{dark ? <Sun size={17} /> : <Moon size={17} />}</button>
+  const toggleTheme = () => {
+    const updateTheme = () => setDark(!dark)
+    if (document.startViewTransition) {
+      document.startViewTransition(updateTheme)
+    } else {
+      updateTheme()
+    }
+  }
+  return <button className="rounded-xl p-2 text-ink hover:bg-white/70 dark:hover:bg-white/10" onClick={toggleTheme} aria-label={dark ? 'switch to light theme' : 'switch to dark theme'} title={dark ? 'light theme' : 'dark theme'}>{dark ? <Sun size={17} /> : <Moon size={17} />}</button>
 }
 
 function Header({ avatar, dark, setDark }) {
@@ -76,18 +84,39 @@ function Footer({ avatar }) {
   </footer>
 }
 
+function useReveal() {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    if (!ref.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setVisible(true)
+      return undefined
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true)
+        observer.disconnect()
+      }
+    }, { threshold: 0.12 })
+    observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+  return [ref, visible]
+}
+
 function PageIntro({ eyebrow, title, copy }) {
-  return <div className="mb-10 max-w-2xl"><p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-coral">{eyebrow}</p><h1 className="font-display text-5xl font-bold leading-[0.95] tracking-[-0.06em] text-ink sm:text-7xl">{title}</h1><p className="mt-5 max-w-xl text-lg leading-8 text-ink/60">{copy}</p></div>
+  const [ref, visible] = useReveal()
+  return <div ref={ref} className={`${visible ? 'reveal-visible' : 'reveal-hidden'} mb-10 max-w-2xl`}><p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-coral">{eyebrow}</p><h1 className="font-display text-5xl font-bold leading-[0.95] tracking-[-0.06em] text-ink sm:text-7xl">{title}</h1><p className="mt-5 max-w-xl text-lg leading-8 text-ink/60">{copy}</p></div>
 }
 
 function Home({ avatar }) {
-  return <main className="mx-auto max-w-6xl px-4 pb-4 pt-20"><div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14"><div><div className="mb-7 flex items-center gap-3 text-sm text-ink/50"><span className="h-2 w-2 rounded-full bg-mint" /> currently building things & making art</div><h1 className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl">soft ideas,<br /><span className="text-coral">sharp tools.</span></h1><p className="mt-8 max-w-xl text-lg leading-8 text-ink/60">developer and artist making minecraft mods, tiny tools, and wallpapers with a quiet amount of care.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral">see my projects <ChevronRight size={16} /></a><a href="#gallery" className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral">browse the gallery <ImageIcon size={16} /></a></div></div><div className="relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft"><div className="absolute -right-3 -top-3 grid h-14 w-14 rotate-6 place-items-center rounded-2xl bg-yellow text-ink shadow-soft"><Sparkles size={22} /></div><div className="overflow-hidden rounded-[1.4rem] bg-paper"><img src={asset('/assets/dragona_cute.png')} alt="cute dragon artwork" className="aspect-[4/3] w-full object-cover" /></div><div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm"><span className="font-semibold text-ink">a tiny corner of the internet</span><span className="text-ink/45">01 / 04</span></div></div></div><div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3"><Stat value="03" label="minecraft projects" /><Stat value="04" label="art pieces" /><Stat value=":3" label="moved by tea" /></div></main>
+  return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14"><div><div className="mb-7 flex items-center gap-3 text-sm text-ink/50"><span className="h-2 w-2 rounded-full bg-mint" /> currently building things & making art</div><h1 className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl">soft ideas,<br /><span className="text-coral">sharp tools.</span></h1><p className="mt-8 max-w-xl text-lg leading-8 text-ink/60">developer and artist making minecraft mods, tiny tools, and wallpapers with a quiet amount of care.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral">see my projects <ChevronRight size={16} /></a><a href="#gallery" className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral">browse the gallery <ImageIcon size={16} /></a></div></div><div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft"><div className="absolute -right-3 -top-3 grid h-14 w-14 rotate-6 place-items-center rounded-2xl bg-yellow text-ink shadow-soft"><Sparkles size={22} /></div><div className="overflow-hidden rounded-[1.4rem] bg-paper"><img src={asset('/assets/dragona_cute.png')} alt="cute dragon artwork" className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105" /></div><div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm"><span className="font-semibold text-ink">a tiny corner of the internet</span><span className="text-ink/45">01 / 04</span></div></div></div><div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3"><Stat value="03" label="minecraft projects" /><Stat value="04" label="art pieces" /><Stat value=":3" label="moved by tea" /></div></main>
 }
 
 function Stat({ value, label }) { return <div><p className="font-display text-3xl font-bold tracking-tight text-ink">{value}</p><p className="mt-1 text-sm text-ink/50">{label}</p></div> }
 
 function Projects() {
-  return <main className="mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="selected work" title="projects, but make them useful." copy="small tools and minecraft things, built for people who like their games cozy and their fps high." /><div className="grid gap-4 lg:grid-cols-3">{projects.map(([icon, title, copy, link], index) => <article key={title} className="group flex flex-col rounded-3xl border border-ink/10 bg-white/60 p-5 shadow-soft transition-transform hover:-translate-y-1"><div className="mb-8 flex items-start justify-between"><img src={icon} alt="" className="h-14 w-14 rounded-2xl" /><span className="font-mono text-xs text-ink/35">0{index + 1}</span></div><h2 className="font-display text-2xl font-bold tracking-tight text-ink">{title}</h2><p className="mt-3 flex-1 text-sm leading-6 text-ink/55">{copy}</p><div className="mt-7 flex items-center justify-between border-t border-ink/10 pt-4 text-xs"><span className="rounded-full bg-mint/30 px-2.5 py-1 text-ink/65">fabric / modrinth</span><a href={`https://${link}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-semibold text-coral">open <ExternalLink size={13} /></a></div></article>)}</div><div className="mt-4 grid gap-4 md:grid-cols-2"><SmallProject icon={<BriefcaseBusiness size={20} />} title="edonme studios" copy="coordination, process, and digital project delivery." link="https://edonme.dev" /><SmallProject icon={<Code2 size={20} />} title="tools & scripts" copy="python utilities and automation for better workflows." link={`https://github.com/${githubUser}`} /></div></main>
+  return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="selected work" title="projects, but make them useful." copy="small tools and minecraft things, built for people who like their games cozy and their fps high." /><div className="grid gap-4 lg:grid-cols-3">{projects.map(([icon, title, copy, link], index) => <article key={title} className="card-enter group flex flex-col rounded-3xl border border-ink/10 bg-white/60 p-5 shadow-soft transition-transform hover:-translate-y-1"><div className="mb-8 flex items-start justify-between"><img src={icon} alt="" className="h-14 w-14 rounded-2xl" /><span className="font-mono text-xs text-ink/35">0{index + 1}</span></div><h2 className="font-display text-2xl font-bold tracking-tight text-ink">{title}</h2><p className="mt-3 flex-1 text-sm leading-6 text-ink/55">{copy}</p><div className="mt-7 flex items-center justify-between border-t border-ink/10 pt-4 text-xs"><span className="rounded-full bg-mint/30 px-2.5 py-1 text-ink/65">fabric / modrinth</span><a href={`https://${link}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-semibold text-coral">open <ExternalLink size={13} /></a></div></article>)}</div><div className="mt-4 grid gap-4 md:grid-cols-2"><SmallProject icon={<BriefcaseBusiness size={20} />} title="edonme studios" copy="coordination, process, and digital project delivery." link="https://edonme.dev" /><SmallProject icon={<Code2 size={20} />} title="tools & scripts" copy="python utilities and automation for better workflows." link={`https://github.com/${githubUser}`} /></div></main>
 }
 
 function SmallProject({ icon, title, copy, link }) { return <a href={link} target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-3xl border border-ink/10 bg-yellow/25 p-5 hover:bg-yellow/45"><span className="grid h-11 w-11 place-items-center rounded-2xl bg-yellow text-ink">{icon}</span><span className="flex-1"><strong className="font-display text-lg text-ink">{title}</strong><span className="mt-1 block text-sm text-ink/50">{copy}</span></span><ArrowUpRight size={18} className="text-ink/40" /></a> }
@@ -95,7 +124,7 @@ function SmallProject({ icon, title, copy, link }) { return <a href={link} targe
 function Gallery() {
   const [selected, setSelected] = useState(null)
   useEffect(() => { const close = (event) => event.key === 'Escape' && setSelected(null); window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close) }, [])
-  return <main className="mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="visual notes" title="a little gallery of things." copy="wallpapers, commissions, and experiments. click around, there are nice pixels hiding here." /><div className="columns-1 gap-4 sm:columns-2">{galleryItems.map(([src, title, type]) => <button key={src} onClick={() => setSelected({ src, title })} className="group relative mb-4 block w-full overflow-hidden rounded-3xl border border-ink/10 bg-blush text-left shadow-soft"><img src={src} alt={title} className="w-full transition duration-500 group-hover:scale-105" /><span className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-ink/70 to-transparent px-5 pb-5 pt-14 text-white"><span><strong className="block font-display text-xl">{title}</strong><small className="text-white/65">{type}</small></span><ImageIcon size={18} /></span></button>)}</div>{selected && <div className="fixed inset-0 z-50 grid place-items-center bg-ink/85 p-4" onClick={() => setSelected(null)}><button className="absolute right-5 top-5 rounded-xl bg-white/10 p-3 text-white" aria-label="close image"><X size={22} /></button><img src={selected.src} alt={selected.title} className="max-h-[88vh] max-w-full rounded-2xl object-contain" onClick={(event) => event.stopPropagation()} /></div>}</main>
+  return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="visual notes" title="a little gallery of things." copy="wallpapers, commissions, and experiments. click around, there are nice pixels hiding here." /><div className="columns-1 gap-4 sm:columns-2">{galleryItems.map(([src, title, type]) => <button key={src} onClick={() => setSelected({ src, title })} className="card-enter group relative mb-4 block w-full overflow-hidden rounded-3xl border border-ink/10 bg-blush text-left shadow-soft"><img src={src} alt={title} className="w-full transition duration-500 group-hover:scale-105" /><span className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-ink/70 to-transparent px-5 pb-5 pt-14 text-white"><span><strong className="block font-display text-xl">{title}</strong><small className="text-white/65">{type}</small></span><ImageIcon size={18} /></span></button>)}</div>{selected && <div className="fixed inset-0 z-50 grid place-items-center bg-ink/85 p-4" onClick={() => setSelected(null)}><button className="absolute right-5 top-5 rounded-xl bg-white/10 p-3 text-white" aria-label="close image"><X size={22} /></button><img src={selected.src} alt={selected.title} className="max-h-[88vh] max-w-full rounded-2xl object-contain" onClick={(event) => event.stopPropagation()} /></div>}</main>
 }
 
 function About({ avatar }) {
@@ -114,7 +143,7 @@ function App() {
   useEffect(() => { document.documentElement.classList.toggle('dark', dark); localStorage.setItem('theme', dark ? 'dark' : 'light') }, [dark])
   useEffect(() => { fetch(`https://api.github.com/users/${githubUser}`).then((response) => response.ok ? response.json() : Promise.reject()).then((user) => user.avatar_url && setAvatar(user.avatar_url)).catch(() => {}) }, [])
   const page = route === 'projects' ? <Projects /> : route === 'gallery' ? <Gallery /> : route === 'about' ? <About avatar={avatar} /> : route === 'contact' ? <Contact /> : <Home avatar={avatar} />
-  return <div className="min-h-screen overflow-hidden"><div className="pointer-events-none fixed inset-0 -z-10 bg-paper"><div className="absolute -left-32 top-40 h-80 w-80 rounded-full bg-yellow/30 blur-3xl" /><div className="absolute -right-24 top-[28rem] h-96 w-96 rounded-full bg-coral/10 blur-3xl" /></div><Header avatar={avatar} dark={dark} setDark={setDark} />{page}<Footer avatar={avatar} /></div>
+  return <div className="min-h-screen overflow-hidden"><div className="pointer-events-none fixed inset-0 -z-10 bg-paper"><div className="absolute -left-32 top-40 h-80 w-80 rounded-full bg-yellow/30 blur-3xl dark:hidden" /><div className="absolute -right-24 top-[28rem] h-96 w-96 rounded-full bg-coral/10 blur-3xl dark:hidden" /></div><Header avatar={avatar} dark={dark} setDark={setDark} />{page}<Footer avatar={avatar} /></div>
 }
 
 createRoot(document.getElementById('root')).render(<StrictMode><App /></StrictMode>)
