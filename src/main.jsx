@@ -340,21 +340,18 @@ function Home({ avatar, projectCount, artCount }) {
             </a>
           </div>
         </div>
-        <div className="grid gap-4">
-          <div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft">
-            <div className="overflow-hidden rounded-[1.4rem] bg-paper">
-              <img
-                src={wallpaper[0]}
-                alt={`${wallpaper[1]} wallpaper`}
-                className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105"
-              />
-            </div>
-            <div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm">
-              <span className="font-semibold text-ink">{wallpaper[1]}</span>
-              <span className="text-ink/45">a tiny corner of the internet</span>
-            </div>
+        <div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft">
+          <div className="overflow-hidden rounded-[1.4rem] bg-paper">
+            <img
+              src={wallpaper[0]}
+              alt={`${wallpaper[1]} wallpaper`}
+              className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105"
+            />
           </div>
-          <SpotifyWidget />
+          <div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm">
+            <span className="font-semibold text-ink">{wallpaper[1]}</span>
+            <span className="text-ink/45">a tiny corner of the internet</span>
+          </div>
         </div>
       </div>
       <div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3">
@@ -696,7 +693,8 @@ function About({ avatar }) {
         copy="i like simple solutions, elegant code, and visual details that feel a little alive."
       />
       <div className="grid gap-5 lg:grid-cols-[.7fr_1.3fr]">
-        <div className="rounded-3xl bg-profile p-6 text-ink shadow-soft">
+        <div className="grid content-start gap-5">
+          <div className="rounded-3xl bg-profile p-6 text-ink shadow-soft">
           <Avatar
             src={avatar}
             className="h-24 w-24 rounded-[1.5rem] object-cover ring-4 ring-coral"
@@ -717,6 +715,8 @@ function About({ avatar }) {
               outside the box.
             </p>
           </div>
+          </div>
+          <SpotifyWidget />
         </div>
         <div className="rounded-3xl border border-ink/10 bg-white/60 p-6 sm:p-8">
           <p className="max-w-2xl text-lg leading-8 text-ink/70">
