@@ -338,6 +338,12 @@ function Home({ avatar, projectCount, artCount }) {
             >
               browse the gallery <ImageIcon size={16} />
             </a>
+            <a
+              href="#about"
+              className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral"
+            >
+              about <ArrowUpRight size={16} />
+            </a>
           </div>
         </div>
         <div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft">
