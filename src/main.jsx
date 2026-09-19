@@ -54,6 +54,33 @@ const projects = [
 ]
 const navItems = [['home', 'home'], ['projects', 'projects'], ['gallery', 'gallery'], ['about', 'about'], ['contact', 'contact']]
 
+async function fetchJson(url) {
+  const response = await fetch(url)
+  if (!response.ok) throw new Error(`request failed: ${response.status}`)
+  return response.json()
+}
+
+function useProjectData() {
+  const [data, setData] = useState({ modrinth: [], github: [], loading: true, error: false })
+  useEffect(() => {
+    let active = true
+    Promise.all([
+      fetchJson('https://api.modrinth.com/v2/user/pxotitas/projects'),
+      fetchJson(`https://api.github.com/users/${githubUser}/repos?sort=updated&per_page=100`),
+    ]).then(async ([modrinth, repositories]) => {
+      const github = await Promise.all(repositories.map(async (repository) => {
+        const commits = await fetchJson(`https://api.github.com/repos/${githubUser}/${repository.name}/commits?per_page=3`).catch(() => [])
+        return { ...repository, commits }
+      }))
+      if (active) setData({ modrinth, github, loading: false, error: false })
+    }).catch(() => {
+      if (active) setData((current) => ({ ...current, loading: false, error: true }))
+    })
+    return () => { active = false }
+  }, [])
+  return data
+}
+
 function useRoute() {
   const [route, setRoute] = useState(window.location.hash.slice(1) || 'home')
   useEffect(() => {
@@ -129,13 +156,27 @@ function PageIntro({ eyebrow, title, copy }) {
   return <div ref={ref} className={`${visible ? 'reveal-visible' : 'reveal-hidden'} mb-10 max-w-2xl`}><p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-coral">{eyebrow}</p><h1 className="font-display text-5xl font-bold leading-[0.95] tracking-[-0.06em] text-ink sm:text-7xl">{title}</h1><p className="mt-5 max-w-xl text-lg leading-8 text-ink/60">{copy}</p></div>
 }
 
-function Home({ avatar }) {
+function Home({ avatar, projectCount, artCount }) {
   return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14"><div><div className="mb-7 flex items-center gap-3 text-sm text-ink/50"><span className="h-2 w-2 rounded-full bg-mint" /> currently building things & making art</div><h1 className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl">soft ideas,<br /><span className="text-coral">sharp tools.</span></h1><p className="mt-8 max-w-xl text-lg leading-8 text-ink/60">developer and artist making minecraft mods, tiny tools, and wallpapers with a quiet amount of care.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral">see my projects <ChevronRight size={16} /></a><a href="#gallery" className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral">browse the gallery <ImageIcon size={16} /></a></div></div><div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft"><div className="absolute -right-3 -top-3 grid h-14 w-14 rotate-6 place-items-center rounded-2xl bg-yellow text-ink shadow-soft"><Sparkles size={22} /></div><div className="overflow-hidden rounded-[1.4rem] bg-paper"><img src={asset('/assets/dragona_cute.png')} alt="cute dragon artwork" className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105" /></div><div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm"><span className="font-semibold text-ink">a tiny corner of the internet</span><span className="text-ink/45">01 / 04</span></div></div></div><div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3"><Stat value="03" label="minecraft projects" /><Stat value="04" label="art pieces" /><Stat value=":3" label="moved by tea" /></div></main>
   const [wallpaper] = useState(() => homeWallpapers[Math.floor(Math.random() * homeWallpapers.length)])
-  return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14"><div><div className="mb-7 flex items-center gap-3 text-sm text-ink/50"><span className="h-2 w-2 rounded-full bg-mint" /> currently building things & making art</div><h1 className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl">soft ideas,<br /><span className="text-coral">sharp tools.</span></h1><p className="mt-8 max-w-xl text-lg leading-8 text-ink/60">developer and artist making minecraft mods, tiny tools, and wallpapers with a quiet amount of care.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral">see my projects <ChevronRight size={16} /></a><a href="#gallery" className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral">browse the gallery <ImageIcon size={16} /></a></div></div><div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft"><div className="overflow-hidden rounded-[1.4rem] bg-paper"><img src={wallpaper[0]} alt={`${wallpaper[1]} wallpaper`} className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105" /></div><div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm"><span className="font-semibold text-ink">{wallpaper[1]}</span><span className="text-ink/45">a tiny corner of the internet</span></div></div></div><div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3"><Stat value="03" label="minecraft projects" /><Stat value="04" label="art pieces" /><Stat value=":3" label="moved by tea" /></div></main>
+  return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14"><div><div className="mb-7 flex items-center gap-3 text-sm text-ink/50"><span className="h-2 w-2 rounded-full bg-mint" /> currently building things & making art</div><h1 className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl">soft ideas,<br /><span className="text-coral">sharp tools.</span></h1><p className="mt-8 max-w-xl text-lg leading-8 text-ink/60">developer and artist making minecraft mods, tiny tools, and wallpapers with a quiet amount of care.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral">see my projects <ChevronRight size={16} /></a><a href="#gallery" className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral">browse the gallery <ImageIcon size={16} /></a></div></div><div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft"><div className="overflow-hidden rounded-[1.4rem] bg-paper"><img src={wallpaper[0]} alt={`${wallpaper[1]} wallpaper`} className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105" /></div><div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm"><span className="font-semibold text-ink">{wallpaper[1]}</span><span className="text-ink/45">a tiny corner of the internet</span></div></div></div><div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3"><Stat value={projectCount ?? '...'} label="projects" /><Stat value={artCount ?? '...'} label="art pieces" /><Stat value=":3" label="moved by tea" /></div></main>
 }
 
 function Stat({ value, label }) { return <div><p className="font-display text-3xl font-bold tracking-tight text-ink">{value}</p><p className="mt-1 text-sm text-ink/50">{label}</p></div> }
+
+function ProjectCard({ project, type }) {
+  const isGithub = type === 'github'
+  const title = isGithub ? project.name : project.title
+  const description = isGithub ? (project.description || 'a github project by pxdritz1.') : (project.description || 'a project published on modrinth.')
+  const link = isGithub ? project.html_url : `https://modrinth.com/project/${project.slug}`
+  const icon = isGithub ? null : project.icon_url
+  return <article className="card-enter group flex flex-col rounded-3xl border border-ink/10 bg-white/60 p-5 shadow-soft transition-transform hover:-translate-y-1"><div className="mb-8 flex items-start justify-between"><div className="grid h-14 w-14 place-items-center overflow-hidden rounded-2xl bg-mint/20 text-coral">{icon ? <img src={icon} alt="" className="h-full w-full object-cover" /> : <Code2 size={25} />}</div><span className="rounded-full bg-mint/20 px-2.5 py-1 font-mono text-xs text-ink/50">{isGithub ? 'github' : 'modrinth'}</span></div><h2 className="font-display text-2xl font-bold tracking-tight text-ink">{title}</h2><p className="mt-3 flex-1 text-sm leading-6 text-ink/55">{description}</p>{isGithub && project.commits?.length > 0 && <div className="mt-5 border-t border-ink/10 pt-4"><p className="mb-2 text-xs font-semibold uppercase tracking-[0.15em] text-coral">recent commits</p><ul className="space-y-1.5">{project.commits.map((commit) => <li key={commit.sha} className="truncate text-xs text-ink/50">{commit.commit.message.split('\n')[0]}</li>)}</ul></div>}<div className="mt-7 flex items-center justify-between border-t border-ink/10 pt-4 text-xs"><span className="text-ink/45">{isGithub ? `${project.stargazers_count} stars` : (project.downloads ? `${project.downloads.toLocaleString()} downloads` : 'published project')}</span><a href={link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-semibold text-coral">open <ExternalLink size={13} /></a></div></article>
+}
+
+function DynamicProjects({ data }) {
+  if (data.loading) return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="selected work" title="projects, but make them useful." copy="loading projects and recent commits..." /><div className="grid gap-4 lg:grid-cols-3">{Array.from({ length: 6 }, (_, index) => <div key={index} className="h-64 animate-pulse rounded-3xl bg-ink/5" />)}</div></main>
+  return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="selected work" title="projects, but make them useful." copy="everything published on modrinth and github, kept fresh through their public apis." />{data.error && <p className="mb-6 rounded-2xl bg-coral/10 p-4 text-sm text-ink/60">some live project data could not be loaded right now.</p>}<section><h2 className="mb-4 font-display text-2xl font-bold text-ink">modrinth</h2><div className="grid gap-4 lg:grid-cols-3">{data.modrinth.map((project) => <ProjectCard key={project.id} project={project} type="modrinth" />)}</div></section><section className="mt-12"><h2 className="mb-4 font-display text-2xl font-bold text-ink">github</h2><div className="grid gap-4 lg:grid-cols-3">{data.github.map((project) => <ProjectCard key={project.id} project={project} type="github" />)}</div></section><div className="mt-4 grid gap-4 md:grid-cols-2"><SmallProject icon={<BriefcaseBusiness size={20} />} title="edonme studios" copy="coordination, process, and digital project delivery." link="https://edonme.dev" /><SmallProject icon={<Code2 size={20} />} title="tools & scripts" copy="python utilities and automation for better workflows." link={`https://github.com/${githubUser}`} /></div></main>
+}
 
 function Projects() {
   return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="selected work" title="projects, but make them useful." copy="small tools and minecraft things, built for people who like their games cozy and their fps high." /><div className="grid gap-4 lg:grid-cols-3">{projects.map(([icon, title, copy, link], index) => <article key={title} className="card-enter group flex flex-col rounded-3xl border border-ink/10 bg-white/60 p-5 shadow-soft transition-transform hover:-translate-y-1"><div className="mb-8 flex items-start justify-between"><img src={icon} alt="" className="h-14 w-14 rounded-2xl" /><span className="font-mono text-xs text-ink/35">0{index + 1}</span></div><h2 className="font-display text-2xl font-bold tracking-tight text-ink">{title}</h2><p className="mt-3 flex-1 text-sm leading-6 text-ink/55">{copy}</p><div className="mt-7 flex items-center justify-between border-t border-ink/10 pt-4 text-xs"><span className="rounded-full bg-mint/30 px-2.5 py-1 text-ink/65">fabric / modrinth</span><a href={`https://${link}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-semibold text-coral">open <ExternalLink size={13} /></a></div></article>)}</div><div className="mt-4 grid gap-4 md:grid-cols-2"><SmallProject icon={<BriefcaseBusiness size={20} />} title="edonme studios" copy="coordination, process, and digital project delivery." link="https://edonme.dev" /><SmallProject icon={<Code2 size={20} />} title="tools & scripts" copy="python utilities and automation for better workflows." link={`https://github.com/${githubUser}`} /></div></main>
@@ -160,11 +201,14 @@ function Contact() {
 
 function App() {
   const route = useRoute()
+  const projectData = useProjectData()
   const [avatar, setAvatar] = useState(fallbackAvatar)
   const [dark, setDark] = useState(() => localStorage.getItem('theme') === 'dark')
   useEffect(() => { document.documentElement.classList.toggle('dark', dark); localStorage.setItem('theme', dark ? 'dark' : 'light') }, [dark])
   useEffect(() => { fetch(`https://api.github.com/users/${githubUser}`).then((response) => response.ok ? response.json() : Promise.reject()).then((user) => user.avatar_url && setAvatar(user.avatar_url)).catch(() => {}) }, [])
-  const page = route === 'projects' ? <Projects /> : route === 'gallery' ? <Gallery /> : route === 'about' ? <About avatar={avatar} /> : route === 'contact' ? <Contact /> : <Home avatar={avatar} />
+  const projectCount = projectData.loading ? null : projectData.modrinth.length + projectData.github.length
+  const artCount = galleryItems.filter(([src]) => !src.endsWith('/cujos.png')).length
+  const page = route === 'projects' ? <DynamicProjects data={projectData} /> : route === 'gallery' ? <Gallery /> : route === 'about' ? <About avatar={avatar} /> : route === 'contact' ? <Contact /> : <Home avatar={avatar} projectCount={projectCount} artCount={artCount} />
   return <div className="min-h-screen overflow-hidden"><div className="pointer-events-none fixed inset-0 -z-10 bg-paper"><div className="absolute -left-32 top-40 h-80 w-80 rounded-full bg-yellow/30 blur-3xl dark:hidden" /><div className="absolute -right-24 top-[28rem] h-96 w-96 rounded-full bg-coral/10 blur-3xl dark:hidden" /></div><Header avatar={avatar} dark={dark} setDark={setDark} />{page}<Footer avatar={avatar} /></div>
 }
 
