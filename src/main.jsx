@@ -112,17 +112,10 @@ function useProjectData() {
         modrinthResult.status === "fulfilled" ? modrinthResult.value : [];
       const repositories =
         githubResult.status === "fulfilled" ? githubResult.value : [];
-      const github = await Promise.all(
-        repositories.map(async (repository, index) => {
-          const commits =
-            index < 10
-              ? await fetchJson(
-                  `https://api.github.com/repos/${githubUser}/${repository.name}/commits?per_page=3`,
-                ).catch(() => [])
-              : [];
-          return { ...repository, commits };
-        }),
-      );
+      const github = repositories.map((repository) => ({
+        ...repository,
+        commits: [],
+      }));
 
       if (!active) return;
       setData({
@@ -133,6 +126,24 @@ function useProjectData() {
           modrinthResult.status === "rejected" ||
           githubResult.status === "rejected",
       });
+
+      const commitResults = await Promise.all(
+        repositories.slice(0, 10).map((repository) =>
+          fetchJson(
+            `https://api.github.com/repos/${githubUser}/${repository.name}/commits?per_page=3`,
+          ).catch(() => []),
+        ),
+      );
+
+      if (active) {
+        setData((current) => ({
+          ...current,
+          github: current.github.map((repository, index) => ({
+            ...repository,
+            commits: commitResults[index] || [],
+          })),
+        }));
+      }
     }
 
     loadProjects().catch(() => {
