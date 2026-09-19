@@ -6,6 +6,7 @@
 @theme {
   --color-paper: #fffaf5;
   --color-ink: #262321;
+  --color-profile: #f1e9e1;
   --color-coral: #e96858;
   --color-coral-dark: #c84d40;
   --color-blush: #f8dfd5;
@@ -22,9 +23,15 @@ html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; background: #fffaf5; color: #262321; font-family: 'DM Sans', sans-serif; }
 body { transition: background-color 320ms ease, color 320ms ease; }
 .dark body { background: #0f0e0f; color: #f7eee8; }
-.dark { --color-paper: #0f0e0f; --color-ink: #f7eee8; --color-blush: #2c2224; --color-yellow: #d8ad62; --color-mint: #6eae99; --color-coral: #e96858; --color-coral-dark: #c84d40; --shadow-soft: 0 16px 42px rgba(0, 0, 0, .38); }
+.dark { --color-paper: #0f0e0f; --color-ink: #f7eee8; --color-profile: #242022; --color-blush: #2c2224; --color-yellow: #d8ad62; --color-mint: #6eae99; --color-coral: #e96858; --color-coral-dark: #c84d40; --shadow-soft: 0 16px 42px rgba(0, 0, 0, .38); }
 .dark .bg-white\/60 { background-color: rgb(29 25 26 / .86); }
 .dark .bg-white\/50 { background-color: rgb(29 25 26 / .68); }
+.m3-outline { border: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent); box-shadow: 0 1px 2px rgb(0 0 0 / .04); }
+.m3-outline:hover { border-color: color-mix(in srgb, var(--color-coral) 58%, transparent); box-shadow: 0 3px 8px rgb(0 0 0 / .08); }
+.m3-outline:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-coral) 35%, transparent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .m3-outline, .m3-outline:hover { transition: none; }
+}
 .dark .hover\:bg-white\/70:hover { background-color: rgb(255 255 255 / .08); }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 320ms; animation-timing-function: ease; }
 ::view-transition-old(root) { animation-name: theme-out; }
