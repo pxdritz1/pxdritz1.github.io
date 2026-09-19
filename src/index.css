@@ -26,6 +26,7 @@ body { transition: background-color 320ms ease, color 320ms ease; }
 .dark { --color-paper: #0f0e0f; --color-ink: #f7eee8; --color-profile: #242022; --color-blush: #2c2224; --color-yellow: #d8ad62; --color-mint: #6eae99; --color-coral: #e96858; --color-coral-dark: #c84d40; --shadow-soft: 0 16px 42px rgba(0, 0, 0, .38); }
 .dark .bg-white\/60 { background-color: rgb(29 25 26 / .86); }
 .dark .bg-white\/50 { background-color: rgb(29 25 26 / .68); }
+.hover-surface:hover { background-color: rgb(255 255 255 / .2); }
 .m3-outline { border: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent); box-shadow: 0 1px 2px rgb(0 0 0 / .04); }
 .m3-outline:hover { border-color: color-mix(in srgb, var(--color-coral) 58%, transparent); box-shadow: 0 3px 8px rgb(0 0 0 / .08); }
 .m3-outline:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-coral) 35%, transparent); outline-offset: 2px; }
