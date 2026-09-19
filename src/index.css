@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-paper: #fffaf5;
+  --color-ink: #262321;
+  --color-coral: #e96858;
+  --color-coral-dark: #c84d40;
+  --color-blush: #f8dfd5;
+  --color-yellow: #f8d980;
+  --color-mint: #a9d8c5;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --shadow-soft: 0 14px 40px rgba(68, 46, 35, .08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: #fffaf5; color: #262321; font-family: 'DM Sans', sans-serif; }
+button, a { transition: all 180ms ease; }
+button { cursor: pointer; }
+::selection { background: #f8d980; color: #262321; }
