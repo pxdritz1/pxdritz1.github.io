@@ -84,6 +84,7 @@ const navItems = [
   ["about", "about"],
   ["contact", "contact"],
 ];
+const githubRequests = new Map();
 
 async function fetchJson(url) {
   const response = await fetch(url);
@@ -91,25 +92,76 @@ async function fetchJson(url) {
   return response.json();
 }
 
+async function fetchGithubJson(path) {
+  const cacheKey = `github-api:${path}`;
+  const cached = sessionStorage.getItem(cacheKey);
+  if (cached) {
+    try {
+      const { timestamp, data } = JSON.parse(cached);
+      if (Date.now() - timestamp < 10 * 60 * 1000) return data;
+    } catch {
+      sessionStorage.removeItem(cacheKey);
+    }
+  }
+
+  if (githubRequests.has(path)) return githubRequests.get(path);
+
+  const request = (async () => {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 10000);
+    try {
+      const response = await fetch(`https://api.github.com${path}`, {
+        headers: {
+          Accept: "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+        signal: controller.signal,
+      });
+      if (!response.ok) {
+        throw new Error(`github request failed: ${response.status}`);
+      }
+      const data = await response.json();
+      sessionStorage.setItem(
+        cacheKey,
+        JSON.stringify({ timestamp: Date.now(), data }),
+      );
+      return data;
+    } finally {
+      window.clearTimeout(timeout);
+    }
+  })();
+  githubRequests.set(path, request);
+  try {
+    return await request;
+  } finally {
+    githubRequests.delete(path);
+  }
+}
+
 function useProjectData() {
   const [data, setData] = useState({
     modrinth: [],
     github: [],
+    avatar: fallbackAvatar,
     loading: true,
     error: false,
   });
   useEffect(() => {
     let active = true;
     async function loadProjects() {
-      const [modrinthResult, githubResult] = await Promise.allSettled([
+      const [modrinthResult, profileResult, githubResult] =
+        await Promise.allSettled([
         fetchJson("https://api.modrinth.com/v2/user/pxotitas/projects"),
-        fetchJson(
-          `https://api.github.com/users/${githubUser}/repos?sort=updated&per_page=100`,
-        ),
-      ]);
+          fetchGithubJson(`/users/${githubUser}`),
+          fetchGithubJson(
+            `/users/${githubUser}/repos?sort=updated&per_page=100`,
+          ),
+        ]);
 
       const modrinth =
         modrinthResult.status === "fulfilled" ? modrinthResult.value : [];
+      const profile =
+        profileResult.status === "fulfilled" ? profileResult.value : null;
       const repositories =
         githubResult.status === "fulfilled" ? githubResult.value : [];
       const github = repositories.map((repository) => ({
@@ -121,16 +173,18 @@ function useProjectData() {
       setData({
         modrinth,
         github,
+        avatar: profile?.avatar_url || fallbackAvatar,
         loading: false,
         error:
           modrinthResult.status === "rejected" ||
+          profileResult.status === "rejected" ||
           githubResult.status === "rejected",
       });
 
       const commitResults = await Promise.all(
         repositories.slice(0, 10).map((repository) =>
-          fetchJson(
-            `https://api.github.com/repos/${githubUser}/${repository.name}/commits?per_page=3`,
+          fetchGithubJson(
+            `/repos/${githubUser}/${repository.name}/commits?per_page=3`,
           ).catch(() => []),
         ),
       );
@@ -927,7 +981,6 @@ function Contact() {
 function App() {
   const route = useRoute();
   const projectData = useProjectData();
-  const [avatar, setAvatar] = useState(fallbackAvatar);
   const [dark, setDark] = useState(
     () => localStorage.getItem("theme") === "dark",
   );
@@ -935,12 +988,7 @@ function App() {
     document.documentElement.classList.toggle("dark", dark);
     localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
-  useEffect(() => {
-    fetch(`https://api.github.com/users/${githubUser}`)
-      .then((response) => (response.ok ? response.json() : Promise.reject()))
-      .then((user) => user.avatar_url && setAvatar(user.avatar_url))
-      .catch(() => {});
-  }, []);
+  const avatar = projectData.avatar || fallbackAvatar;
   const projectCount = projectData.loading ? null : projectData.modrinth.length;
   const artCount = galleryItems.filter(
     ([src]) => !src.endsWith("/cujos.png"),
