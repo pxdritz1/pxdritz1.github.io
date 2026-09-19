@@ -5,23 +5,27 @@ import {
   BriefcaseBusiness,
   ChevronRight,
   Code2,
+  Coffee,
   ExternalLink,
   Image as ImageIcon,
   Mail,
   Menu,
   MessageCircle,
+  Moon,
   Sparkles,
+  Sun,
   X,
 } from 'lucide-react'
 import './index.css'
 
 const githubUser = 'pxdritz'
-const fallbackAvatar = '/assets/oc-icon.png'
+const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+const fallbackAvatar = asset('/assets/oc-icon.png')
 const galleryItems = [
-  ['/assets/unitedtrans.png', 'united trans', 'poster study'],
-  ['/assets/vectorbloom_lain.png', 'vectorbloom lain', 'vector study'],
-  ['/assets/cujos.png', 'cujos', 'character art'],
-  ['/assets/6e86120b-b056-46f7-978f-c517e3c1884e.png', 'abstract', 'wallpaper'],
+  [asset('/assets/unitedtrans.png'), 'united trans', 'poster study'],
+  [asset('/assets/vectorbloom_lain.png'), 'vectorbloom lain', 'vector study'],
+  [asset('/assets/cujos.png'), 'cujos', 'character art'],
+  [asset('/assets/6e86120b-b056-46f7-978f-c517e3c1884e.png'), 'abstract', 'wallpaper'],
 ]
 const projects = [
   ['https://cdn.modrinth.com/data/zLOxi2dV/8156284569e35a77d98e6a0730579df2ca175868_96.webp', 'blokkusus', '126+ new building blocks for minecraft, made to sit naturally beside vanilla.', 'modrinth.com/project/blokkusus'],
@@ -44,7 +48,11 @@ function Avatar({ src, className = '' }) {
   return <img className={className} src={src || fallbackAvatar} alt="pxdritz" onError={(event) => { event.currentTarget.src = fallbackAvatar }} />
 }
 
-function Header({ avatar }) {
+function ThemeToggle({ dark, setDark }) {
+  return <button className="rounded-xl p-2 text-ink hover:bg-white/70 dark:hover:bg-white/10" onClick={() => setDark(!dark)} aria-label={dark ? 'switch to light theme' : 'switch to dark theme'} title={dark ? 'light theme' : 'dark theme'}>{dark ? <Sun size={17} /> : <Moon size={17} />}</button>
+}
+
+function Header({ avatar, dark, setDark }) {
   const [open, setOpen] = useState(false)
   return <header className="sticky top-0 z-30 px-4 pt-4">
     <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-2xl border border-ink/10 bg-paper/80 px-3 py-2 shadow-soft backdrop-blur-md" aria-label="main navigation">
@@ -55,7 +63,7 @@ function Header({ avatar }) {
       <button className="rounded-xl p-2 text-ink md:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="toggle navigation">{open ? <X size={18} /> : <Menu size={18} />}</button>
       <div className={`${open ? 'flex' : 'hidden'} absolute left-4 right-4 top-[4.5rem] flex-col gap-1 rounded-2xl border border-ink/10 bg-paper p-2 shadow-soft md:static md:flex md:flex-row md:items-center md:border-0 md:bg-transparent md:p-0 md:shadow-none`}>
         {navItems.slice(1).map(([path, label]) => <a key={path} href={`#${path}`} onClick={() => setOpen(false)} className={`rounded-xl px-3 py-2 text-sm text-ink/65 hover:bg-white/70 hover:text-ink ${window.location.hash === `#${path}` ? 'bg-ink text-paper hover:bg-ink hover:text-paper' : ''}`}>{label}</a>)}
-        <a href={`https://github.com/${githubUser}`} target="_blank" rel="noreferrer" className="ml-1 inline-flex items-center gap-2 rounded-xl bg-coral px-3 py-2 text-sm font-semibold text-white hover:bg-coral-dark">github <ArrowUpRight size={14} /></a>
+        <ThemeToggle dark={dark} setDark={setDark} /><a href={`https://github.com/${githubUser}`} target="_blank" rel="noreferrer" className="ml-1 inline-flex items-center gap-2 rounded-xl bg-coral px-3 py-2 text-sm font-semibold text-white hover:bg-coral-dark">github <ArrowUpRight size={14} /></a>
       </div>
     </nav>
   </header>
@@ -63,8 +71,8 @@ function Header({ avatar }) {
 
 function Footer({ avatar }) {
   return <footer className="mx-auto mt-20 flex max-w-6xl flex-col gap-4 border-t border-ink/10 px-4 py-8 text-sm text-ink/50 sm:flex-row sm:items-center sm:justify-between">
-    <div className="flex items-center gap-3"><Avatar src={avatar} className="h-8 w-8 rounded-full object-cover" /><span>made with care by pxdritz :3</span></div>
-    <div className="flex items-center gap-4"><a href={`https://github.com/${githubUser}`} target="_blank" rel="noreferrer" aria-label="github"><Code2 size={17} /></a><a href="https://ko-fi.com/pxdritz1" target="_blank" rel="noreferrer" aria-label="ko-fi"><Sparkles size={17} /></a><span>© 2026</span></div>
+    <div><Avatar src={avatar} className="h-8 w-8 rounded-full object-cover" /></div>
+    <div className="flex items-center gap-4"><a href={`https://github.com/${githubUser}`} target="_blank" rel="noreferrer" aria-label="github"><Code2 size={17} /></a><a href="https://ko-fi.com/pxdritz1" target="_blank" rel="noreferrer" aria-label="ko-fi"><Coffee size={17} /></a><span>© 2026</span></div>
   </footer>
 }
 
@@ -73,7 +81,7 @@ function PageIntro({ eyebrow, title, copy }) {
 }
 
 function Home({ avatar }) {
-  return <main className="mx-auto max-w-6xl px-4 pb-4 pt-20"><div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14"><div><div className="mb-7 flex items-center gap-3 text-sm text-ink/50"><span className="h-2 w-2 rounded-full bg-mint" /> currently building things & making art</div><h1 className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl">soft ideas,<br /><span className="text-coral">sharp tools.</span></h1><p className="mt-8 max-w-xl text-lg leading-8 text-ink/60">developer and artist making minecraft mods, tiny tools, and wallpapers with a quiet amount of care.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral">see my projects <ChevronRight size={16} /></a><a href="#gallery" className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral">browse the gallery <ImageIcon size={16} /></a></div></div><div className="relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft"><div className="absolute -right-3 -top-3 grid h-14 w-14 rotate-6 place-items-center rounded-2xl bg-yellow text-ink shadow-soft"><Sparkles size={22} /></div><div className="overflow-hidden rounded-[1.4rem] bg-paper"><img src="/assets/dragona_cute.png" alt="cute dragon artwork" className="aspect-[4/3] w-full object-cover" /></div><div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm"><span className="font-semibold text-ink">a tiny corner of the internet</span><span className="text-ink/45">01 / 04</span></div></div></div><div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3"><Stat value="03" label="minecraft projects" /><Stat value="04" label="art pieces" /><Stat value=":3" label="good vibes" /></div></main>
+  return <main className="mx-auto max-w-6xl px-4 pb-4 pt-20"><div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14"><div><div className="mb-7 flex items-center gap-3 text-sm text-ink/50"><span className="h-2 w-2 rounded-full bg-mint" /> currently building things & making art</div><h1 className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl">soft ideas,<br /><span className="text-coral">sharp tools.</span></h1><p className="mt-8 max-w-xl text-lg leading-8 text-ink/60">developer and artist making minecraft mods, tiny tools, and wallpapers with a quiet amount of care.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral">see my projects <ChevronRight size={16} /></a><a href="#gallery" className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral">browse the gallery <ImageIcon size={16} /></a></div></div><div className="relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft"><div className="absolute -right-3 -top-3 grid h-14 w-14 rotate-6 place-items-center rounded-2xl bg-yellow text-ink shadow-soft"><Sparkles size={22} /></div><div className="overflow-hidden rounded-[1.4rem] bg-paper"><img src={asset('/assets/dragona_cute.png')} alt="cute dragon artwork" className="aspect-[4/3] w-full object-cover" /></div><div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm"><span className="font-semibold text-ink">a tiny corner of the internet</span><span className="text-ink/45">01 / 04</span></div></div></div><div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3"><Stat value="03" label="minecraft projects" /><Stat value="04" label="art pieces" /><Stat value=":3" label="moved by tea" /></div></main>
 }
 
 function Stat({ value, label }) { return <div><p className="font-display text-3xl font-bold tracking-tight text-ink">{value}</p><p className="mt-1 text-sm text-ink/50">{label}</p></div> }
@@ -91,20 +99,22 @@ function Gallery() {
 }
 
 function About({ avatar }) {
-  return <main className="mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="a bit about me" title="curious by default." copy="i like simple solutions, elegant code, and visual details that feel a little alive." /><div className="grid gap-5 lg:grid-cols-[.7fr_1.3fr]"><div className="rounded-3xl bg-ink p-6 text-paper"><Avatar src={avatar} className="h-24 w-24 rounded-[1.5rem] object-cover ring-4 ring-coral" /><p className="mt-12 font-display text-3xl font-bold leading-tight">hello, i'm pxdritz<span className="text-coral">.</span></p><p className="mt-4 text-sm leading-6 text-paper/60">coo at edonme studios, maker of mods, tools, and art.</p></div><div className="rounded-3xl border border-ink/10 bg-white/60 p-6 sm:p-8"><p className="max-w-2xl text-lg leading-8 text-ink/70">i work with <strong className="text-ink">java</strong>, <strong className="text-ink">python</strong>, and <strong className="text-ink">lua</strong> to make minecraft mods and useful little tools. i also make wallpapers and commissioned artwork when the right idea comes along.</p><div className="mt-10 flex flex-wrap gap-2">{['java / modding', 'lua / scripting', 'python / tools', 'art / wallpapers', 'fabric', 'datapacks', 'github actions'].map((skill) => <span key={skill} className="rounded-full border border-ink/10 bg-paper px-3 py-1.5 text-xs text-ink/60">{skill}</span>)}</div></div></div></main>
+  return <main className="mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="a bit about me" title="curious by default." copy="i like simple solutions, elegant code, and visual details that feel a little alive." /><div className="grid gap-5 lg:grid-cols-[.7fr_1.3fr]"><div className="rounded-3xl bg-ink p-6 text-paper"><Avatar src={avatar} className="h-24 w-24 rounded-[1.5rem] object-cover ring-4 ring-coral" /><p className="mt-12 font-display text-3xl font-bold leading-tight">hello, i'm pxdritz<span className="text-coral">.</span></p><p className="mt-4 text-sm leading-6 text-paper/60">coo at edonme studios, maker of mods, tools, and art.</p></div><div className="rounded-3xl border border-ink/10 bg-white/60 p-6 sm:p-8"><p className="max-w-2xl text-lg leading-8 text-ink/70">i work with <strong className="text-ink">java</strong>, <strong className="text-ink">python</strong>, and <strong className="text-ink">lua</strong> to make minecraft mods and useful little tools. i also make wallpapers and commissioned artwork when the right idea comes along.</p><div className="mt-8 rounded-2xl bg-mint/20 p-4"><p className="font-mono text-xs uppercase tracking-[0.18em] text-coral">minecraft pvp era</p><p className="mt-2 text-sm leading-6 text-ink/65">i was a frequent minecraft 1.8.9 pvp player, known on NameMC as <strong className="text-ink">pxdritz</strong>.</p><a href="https://namemc.com/profile/pxdritz" target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-coral">view NameMC <ExternalLink size={13} /></a></div><div className="mt-8"><p className="mb-4 font-display text-lg font-bold text-ink">languages & tools</p><div className="flex flex-wrap items-center gap-3 rounded-2xl border border-ink/10 bg-paper p-4"><img src="https://skillicons.dev/icons?i=html,css,kotlin,java,lua,cs,rust,python,js,ts,go,cpp" alt="html css kotlin java lua c# rust python javascript typescript go c++" className="max-w-full" /><img src="https://docs.fabricmc.net/logo.png" alt="fabric" className="h-11 w-auto" /></div></div></div></div></main>
 }
 
 function Contact() {
-  const links = [['discord', 'pxotitas', 'chat, commissions, friendly hellos', <MessageCircle size={21} />, 'https://discord.com/users/pxotitas'], ['github', 'pxdritz', 'code, experiments, and public things', <Code2 size={21} />, `https://github.com/${githubUser}`], ['modrinth', 'pxotitas', 'mods and modpacks', <Code2 size={21} />, 'https://modrinth.com/user/pxotitas'], ['ko-fi', 'pxdritz1', 'support the little studio', <Sparkles size={21} />, 'https://ko-fi.com/pxdritz1']]
-  return <main className="mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="say hello" title="let's make something nice." copy="for commissions, collaborations, or just a friendly wave, discord is the fastest way to find me." /><div className="grid gap-3 sm:grid-cols-2">{links.map(([name, handle, copy, icon, link]) => <a key={name} href={link} target="_blank" rel="noreferrer" className="group flex items-center gap-4 rounded-3xl border border-ink/10 bg-white/60 p-5 hover:border-coral hover:bg-blush"><span className="grid h-12 w-12 place-items-center rounded-2xl bg-yellow text-ink">{icon}</span><span className="flex-1"><strong className="font-display text-lg text-ink">{name} / {handle}</strong><span className="mt-1 block text-sm text-ink/50">{copy}</span></span><ArrowUpRight size={18} className="text-ink/35 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a>)}</div><div className="mt-10 flex items-center gap-3 rounded-3xl border border-dashed border-coral/35 bg-coral/5 p-5 text-sm text-ink/55"><Mail size={18} className="text-coral" /> usually replies within a few hours, give or take a snack break.</div></main>
+  const links = [['discord', 'pxotitas', 'chat, commissions, friendly hellos', <MessageCircle size={21} />, 'https://discord.com/users/pxotitas'], ['github', 'pxdritz', 'code, experiments, and public things', <Code2 size={21} />, `https://github.com/${githubUser}`], ['modrinth', 'pxotitas', 'mods and modpacks', <Code2 size={21} />, 'https://modrinth.com/user/pxotitas'], ['ko-fi', 'pxdritz1', 'support the little studio', <Sparkles size={21} />, 'https://ko-fi.com/pxdritz1'], ['server', "px's server", 'a brazilian community for friends and minecraft', <MessageCircle size={21} />, 'https://discord.gg/fMkj87H2ds'], ['server', "code's café", 'a brazilian programming and tech community', <MessageCircle size={21} />, 'https://discord.gg/BDKNDHvjrD'], ['server', 'servidor dos programadores', 'a brazilian server for people who code', <MessageCircle size={21} />, 'https://discord.gg/programador']]
+  return <main className="mx-auto max-w-6xl px-4 pb-4 pt-20"><PageIntro eyebrow="say hello" title="let's make something nice." copy="for commissions, collaborations, or just a friendly wave, discord is the fastest way to find me." /><div className="grid gap-3 sm:grid-cols-2">{links.map(([name, handle, copy, icon, link], index) => <a key={`${name}-${handle}-${index}`} href={link} target="_blank" rel="noreferrer" className="group flex items-center gap-4 rounded-3xl border border-ink/10 bg-white/60 p-5 hover:border-coral hover:bg-blush"><span className="grid h-12 w-12 place-items-center rounded-2xl bg-yellow text-ink">{icon}</span><span className="flex-1"><strong className="font-display text-lg text-ink">{name} / {handle}</strong><span className="mt-1 block text-sm text-ink/50">{copy}</span></span><ArrowUpRight size={18} className="text-ink/35 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a>)}</div><div className="mt-8 flex items-start gap-3 rounded-3xl border border-dashed border-coral/35 bg-coral/5 p-5 text-sm leading-6 text-ink/55"><MessageCircle size={18} className="mt-1 shrink-0 text-coral" /><span>all three servers above are brazilian communities. portuguese is the main language, and most people can also speak english.</span></div><div className="mt-4 flex items-center gap-3 rounded-3xl border border-dashed border-coral/35 bg-coral/5 p-5 text-sm text-ink/55"><Mail size={18} className="text-coral" /> usually replies within a few hours, give or take a snack break.</div></main>
 }
 
 function App() {
   const route = useRoute()
   const [avatar, setAvatar] = useState(fallbackAvatar)
+  const [dark, setDark] = useState(() => localStorage.getItem('theme') === 'dark')
+  useEffect(() => { document.documentElement.classList.toggle('dark', dark); localStorage.setItem('theme', dark ? 'dark' : 'light') }, [dark])
   useEffect(() => { fetch(`https://api.github.com/users/${githubUser}`).then((response) => response.ok ? response.json() : Promise.reject()).then((user) => user.avatar_url && setAvatar(user.avatar_url)).catch(() => {}) }, [])
   const page = route === 'projects' ? <Projects /> : route === 'gallery' ? <Gallery /> : route === 'about' ? <About avatar={avatar} /> : route === 'contact' ? <Contact /> : <Home avatar={avatar} />
-  return <div className="min-h-screen overflow-hidden"><div className="pointer-events-none fixed inset-0 -z-10 bg-paper"><div className="absolute -left-32 top-40 h-80 w-80 rounded-full bg-yellow/30 blur-3xl" /><div className="absolute -right-24 top-[28rem] h-96 w-96 rounded-full bg-coral/10 blur-3xl" /></div><Header avatar={avatar} />{page}<Footer avatar={avatar} /></div>
+  return <div className="min-h-screen overflow-hidden"><div className="pointer-events-none fixed inset-0 -z-10 bg-paper"><div className="absolute -left-32 top-40 h-80 w-80 rounded-full bg-yellow/30 blur-3xl" /><div className="absolute -right-24 top-[28rem] h-96 w-96 rounded-full bg-coral/10 blur-3xl" /></div><Header avatar={avatar} dark={dark} setDark={setDark} />{page}<Footer avatar={avatar} /></div>
 }
 
 createRoot(document.getElementById('root')).render(<StrictMode><App /></StrictMode>)
