@@ -100,27 +100,50 @@ function useProjectData() {
   });
   useEffect(() => {
     let active = true;
-    Promise.all([
-      fetchJson("https://api.modrinth.com/v2/user/pxotitas/projects"),
-      fetchJson(
-        `https://api.github.com/users/${githubUser}/repos?sort=updated&per_page=100`,
-      ),
-    ])
-      .then(async ([modrinth, repositories]) => {
-        const github = await Promise.all(
-          repositories.map(async (repository) => {
-            const commits = await fetchJson(
-              `https://api.github.com/repos/${githubUser}/${repository.name}/commits?per_page=3`,
-            ).catch(() => []);
-            return { ...repository, commits };
-          }),
-        );
-        if (active) setData({ modrinth, github, loading: false, error: false });
-      })
-      .catch(() => {
-        if (active)
-          setData((current) => ({ ...current, loading: false, error: true }));
+    async function loadProjects() {
+      const [modrinthResult, githubResult] = await Promise.allSettled([
+        fetchJson("https://api.modrinth.com/v2/user/pxotitas/projects"),
+        fetchJson(
+          `https://api.github.com/users/${githubUser}/repos?sort=updated&per_page=100`,
+        ),
+      ]);
+
+      const modrinth =
+        modrinthResult.status === "fulfilled" ? modrinthResult.value : [];
+      const repositories =
+        githubResult.status === "fulfilled" ? githubResult.value : [];
+      const github = await Promise.all(
+        repositories.map(async (repository, index) => {
+          const commits =
+            index < 10
+              ? await fetchJson(
+                  `https://api.github.com/repos/${githubUser}/${repository.name}/commits?per_page=3`,
+                ).catch(() => [])
+              : [];
+          return { ...repository, commits };
+        }),
+      );
+
+      if (!active) return;
+      setData({
+        modrinth,
+        github,
+        loading: false,
+        error:
+          modrinthResult.status === "rejected" ||
+          githubResult.status === "rejected",
       });
+    }
+
+    loadProjects().catch(() => {
+      if (active) {
+        setData((current) => ({
+          ...current,
+          loading: false,
+          error: true,
+        }));
+      }
+    });
     return () => {
       active = false;
     };
