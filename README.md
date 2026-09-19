@@ -40,3 +40,11 @@ npm run build
 ```
 
 deployed automatically through github actions and github pages.
+
+## license
+
+the original source code of this site is available under the [pxdritz attribution license](LICENSE).
+
+you may reuse the css, react components, layout, and related source code as long as you explicitly credit **pxdritz1** and link back to [this repository](https://github.com/pxdritz1/pxdritz1.github.io).
+
+please keep the credit reasonably visible, such as in a footer, credits page, documentation, or README. artwork, media, third-party dependencies, and external services are not covered by this permission and may have separate terms.

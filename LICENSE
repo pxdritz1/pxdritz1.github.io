@@ -1,0 +1,36 @@
+PXDRITZ ATTRIBUTION LICENSE
+
+Copyright (c) 2026 pxdritz1
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of the source code of this website, including its CSS, React components,
+layout, and related source files (the "Software"), to use, copy, modify,
+adapt, merge, publish, and distribute the Software, subject to the following
+conditions:
+
+1. Explicit attribution is required in every public or distributed use of the
+   Software or a substantial portion of it.
+
+2. The attribution must credit "pxdritz1" and include a link to the original
+   repository:
+   https://github.com/pxdritz1/pxdritz1.github.io
+
+3. The attribution must be reasonably visible and easy to find. Acceptable
+   locations include a website footer, credits page, documentation, source
+   comments, or repository README. For a public website, the credit must be
+   visible to its visitors or available through an obvious credits/source link.
+
+4. Modified versions must clearly state that they are modified versions and
+   must not imply that pxdritz1 endorses or maintains them.
+
+5. The original copyright notice and this license must be preserved in copies
+   or substantial portions of the Software.
+
+The Software is provided "as is", without warranty of any kind, express or
+implied. In no event shall the authors or copyright holders be liable for any
+claim, damages, or other liability arising from the use of the Software.
+
+This license applies only to original source code created for this repository.
+It does not grant rights to third-party dependencies, external services,
+trademarks, or artwork and other media that may be included in the repository.
+Those works remain subject to their own licenses or permissions.
