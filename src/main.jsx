@@ -818,14 +818,14 @@ function About({ avatar }) {
             className="h-24 w-24 rounded-[1.5rem] object-cover ring-4 ring-coral"
           />
           <p className="mt-12 font-display text-3xl font-bold leading-tight">
-            hello, i'm chloe<span className="text-coral">.</span>
+            hello, i'm chloe, nice to meet you!!!<span className="text-coral">.</span>
           </p>
           <p className="mt-4 text-sm leading-6 text-ink/60">
             coo at edonme studios, maker of mods, tools, and art.
           </p>
           <div className="mt-8 border-t border-ink/10 pt-6 text-sm leading-6 text-ink/65">
             <p>
-              nice to meet you! i love tea, traveling, programming, helping
+              i love tea, traveling, programming, helping
               beginners, and meditating.
             </p>
             <p className="mt-4">
