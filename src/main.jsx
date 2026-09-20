@@ -31,7 +31,6 @@ const galleryItems = [
     "wallpaper",
   ],
   [asset("/assets/dragona.png"), "dragona", "wallpaper"],
-  [asset("/assets/joedio.png"), "joedio", "wallpaper"],
   [asset("/assets/jojo.png"), "jojo", "wallpaper"],
   [asset("/assets/jolyne.png"), "jolyne", "wallpaper"],
   [
