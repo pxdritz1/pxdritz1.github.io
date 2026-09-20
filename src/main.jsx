@@ -33,11 +33,6 @@ const galleryItems = [
   [asset("/assets/dragona.png"), "dragona", "wallpaper"],
   [asset("/assets/jojo.png"), "jojo", "wallpaper"],
   [asset("/assets/jolyne.png"), "jolyne", "wallpaper"],
-  [
-    asset("/assets/madoka_lesbian_debian.png"),
-    "madoka lesbian debian",
-    "wallpaper",
-  ],
 ];
 const homeWallpapers = galleryItems.filter(
   ([src]) => !src.endsWith("/cujos.png"),
