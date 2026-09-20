@@ -839,8 +839,9 @@ function About({ avatar }) {
         <div className="rounded-3xl border border-ink/10 bg-white/60 p-6 sm:p-8">
           <p className="max-w-2xl text-lg leading-8 text-ink/70">
             i work with <strong className="text-ink">java</strong>,{" "}
-            <strong className="text-ink">python</strong>, and{" "}
-            <strong className="text-ink">lua</strong> to make minecraft mods and
+            <strong className="text-ink">kotlin</strong>,{" "}
+            <strong className="text-ink">go</strong>, and{" "}
+            <strong className="text-ink">rust</strong> to make minecraft mods and
             useful little tools. i also make wallpapers and commissioned artwork
             when the right idea comes along.
           </p>
