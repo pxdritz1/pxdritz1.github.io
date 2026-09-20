@@ -393,9 +393,10 @@ function Home({ avatar, projectCount, artCount }) {
   /*
   return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14"><div><div className="mb-7 flex items-center gap-3 text-sm text-ink/50"><span className="h-2 w-2 rounded-full bg-mint" /> currently building things & making art</div><h1 className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl">soft ideas,<br /><span className="text-coral">sharp tools.</span></h1><p className="mt-8 max-w-xl text-lg leading-8 text-ink/60">developer and artist making minecraft mods, tiny tools, and wallpapers with a quiet amount of care.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral">see my projects <ChevronRight size={16} /></a><a href="#gallery" className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral">browse the gallery <ImageIcon size={16} /></a></div></div><div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft"><div className="absolute -right-3 -top-3 grid h-14 w-14 rotate-6 place-items-center rounded-2xl bg-yellow text-ink shadow-soft"><Sparkles size={22} /></div><div className="overflow-hidden rounded-[1.4rem] bg-paper"><img src={asset('/assets/dragona_cute.png')} alt="cute dragon artwork" className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105" /></div><div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm"><span className="font-semibold text-ink">a tiny corner of the internet</span><span className="text-ink/45">01 / 04</span></div></div></div><div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3"><Stat value="03" label="minecraft projects" /><Stat value="04" label="art pieces" /><Stat value=":3" label="moved by tea" /></div></main>
   */
-  const [wallpaper] = useState(
-    () => homeWallpapers[Math.floor(Math.random() * homeWallpapers.length)],
+  const [wallpaperIndex, setWallpaperIndex] = useState(
+    () => Math.floor(Math.random() * homeWallpapers.length),
   );
+  const wallpaper = homeWallpapers[wallpaperIndex];
   return (
     <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20">
       <div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14">
@@ -434,7 +435,17 @@ function Home({ avatar, projectCount, artCount }) {
             </a>
           </div>
         </div>
-        <div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft">
+        <button
+          type="button"
+          onClick={() =>
+            setWallpaperIndex(
+              (currentIndex) => (currentIndex + 1) % homeWallpapers.length,
+            )
+          }
+          className="float-slow group relative rounded-[2rem] border border-ink/10 bg-blush p-5 text-left shadow-soft"
+          aria-label="show next wallpaper"
+          title="show next wallpaper"
+        >
           <div className="overflow-hidden rounded-[1.4rem] bg-paper">
             <img
               src={wallpaper[0]}
@@ -444,9 +455,11 @@ function Home({ avatar, projectCount, artCount }) {
           </div>
           <div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm">
             <span className="font-semibold text-ink">{wallpaper[1]}</span>
-            <span className="text-ink/45">a tiny corner of the internet</span>
+            <span className="flex items-center gap-1 text-ink/45 transition-colors group-hover:text-coral">
+              next wallpaper <ChevronRight size={16} />
+            </span>
           </div>
-        </div>
+        </button>
       </div>
       <div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3">
         <Stat value={projectCount ?? "..."} label="minecraft projects" />
@@ -717,11 +730,22 @@ function SmallProject({ icon, title, copy, link }) {
 
 function Gallery() {
   const [selected, setSelected] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const closeTimer = useRef(null);
+  const closeGallery = () => {
+    if (!selected || isClosing) return;
+    setIsClosing(true);
+    closeTimer.current = window.setTimeout(() => {
+      setSelected(null);
+      setIsClosing(false);
+    }, 260);
+  };
   useEffect(() => {
-    const close = (event) => event.key === "Escape" && setSelected(null);
+    const close = (event) => event.key === "Escape" && closeGallery();
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
-  }, []);
+  }, [selected, isClosing]);
+  useEffect(() => () => window.clearTimeout(closeTimer.current), []);
   return (
     <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20">
       <PageIntro
@@ -735,7 +759,11 @@ function Gallery() {
           .map(([src, title, type]) => (
             <button
               key={src}
-              onClick={() => setSelected({ src, title })}
+              onClick={() => {
+                window.clearTimeout(closeTimer.current);
+                setIsClosing(false);
+                setSelected({ src, title });
+              }}
               className="card-enter group relative mb-4 block w-full overflow-hidden rounded-3xl border border-ink/10 bg-blush text-left shadow-soft"
             >
               <img
@@ -757,19 +785,24 @@ function Gallery() {
       </div>
       {selected && (
         <div
-          className="fixed inset-0 z-50 grid place-items-center bg-ink/85 p-4"
-          onClick={() => setSelected(null)}
+          className={`gallery-modal fixed inset-0 z-50 grid place-items-center bg-ink/85 p-4 ${isClosing ? "gallery-modal-closing" : ""}`}
+          onClick={closeGallery}
         >
           <button
+            type="button"
             className="absolute right-5 top-5 rounded-xl bg-white/10 p-3 text-white"
             aria-label="close image"
+            onClick={(event) => {
+              event.stopPropagation();
+              closeGallery();
+            }}
           >
             <X size={22} />
           </button>
           <img
             src={selected.src}
             alt={selected.title}
-            className="max-h-[88vh] max-w-full rounded-2xl object-contain"
+            className="gallery-modal-image max-h-[88vh] max-w-full rounded-2xl object-contain"
             onClick={(event) => event.stopPropagation()}
           />
         </div>

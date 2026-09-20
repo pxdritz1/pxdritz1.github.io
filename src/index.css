@@ -42,6 +42,10 @@ body { transition: background-color 320ms ease, color 320ms ease; }
 @keyframes theme-out { to { opacity: 0; filter: brightness(.92); } }
 @keyframes theme-in { from { opacity: 0; filter: brightness(1.08); } to { opacity: 1; filter: brightness(1); } }
 @keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes gallery-modal-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes gallery-modal-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes gallery-image-in { from { opacity: 0; transform: scale(.96) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes gallery-image-out { from { opacity: 1; transform: scale(1) translateY(0); } to { opacity: 0; transform: scale(.96) translateY(8px); } }
 .page-enter { animation: page-enter 520ms cubic-bezier(.22, 1, .36, 1) both; }
 .card-enter { animation: page-enter 520ms cubic-bezier(.22, 1, .36, 1) both; }
 .card-enter:nth-child(2) { animation-delay: 70ms; }
@@ -50,6 +54,10 @@ body { transition: background-color 320ms ease, color 320ms ease; }
 .float-slow { animation: float-slow 5s ease-in-out infinite; }
 .reveal-hidden { opacity: 0; transform: translateY(18px); }
 .reveal-visible { animation: reveal 620ms cubic-bezier(.22, 1, .36, 1) both; }
+.gallery-modal { animation: gallery-modal-in 260ms ease both; }
+.gallery-modal-image { animation: gallery-image-in 360ms cubic-bezier(.22, 1, .36, 1) both; }
+.gallery-modal-closing { animation: gallery-modal-out 260ms ease both; }
+.gallery-modal-closing .gallery-modal-image { animation: gallery-image-out 260ms ease both; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
