@@ -381,7 +381,7 @@ function PageIntro({ eyebrow, title, copy }) {
   );
 }
 
-function Home({ avatar, projectCount }) {
+function Home() {
   /*
   return <main className="page-enter mx-auto max-w-6xl px-4 pb-4 pt-20"><div className="grid items-end gap-12 lg:grid-cols-[1.2fr_.8fr] lg:pt-14"><div><div className="mb-7 flex items-center gap-3 text-sm text-ink/50"><span className="h-2 w-2 rounded-full bg-mint" /> currently building things & making art</div><h1 className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl">soft ideas,<br /><span className="text-coral">sharp tools.</span></h1><p className="mt-8 max-w-xl text-lg leading-8 text-ink/60">developer and artist making minecraft mods, tiny tools, and wallpapers with a quiet amount of care.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral">see my projects <ChevronRight size={16} /></a><a href="#gallery" className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral">browse the gallery <ImageIcon size={16} /></a></div></div><div className="float-slow relative rounded-[2rem] border border-ink/10 bg-blush p-5 shadow-soft"><div className="absolute -right-3 -top-3 grid h-14 w-14 rotate-6 place-items-center rounded-2xl bg-yellow text-ink shadow-soft"><Sparkles size={22} /></div><div className="overflow-hidden rounded-[1.4rem] bg-paper"><img src={asset('/assets/dragona_cute.png')} alt="cute dragon artwork" className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105" /></div><div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm"><span className="font-semibold text-ink">a tiny corner of the internet</span><span className="text-ink/45">01 / 04</span></div></div></div><div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-3"><Stat value="03" label="minecraft projects" /><Stat value="04" label="art pieces" /><Stat value=":3" label="moved by tea" /></div></main>
   */
@@ -453,11 +453,48 @@ function Home({ avatar, projectCount }) {
           </div>
         </button>
       </div>
-      <div className="mt-24 grid gap-4 border-t border-ink/10 pt-5 sm:grid-cols-2">
-        <Stat value={projectCount ?? "..."} label="minecraft projects" />
-        <Stat value=":3" label="moved by tea" />
-      </div>
     </main>
+  );
+}
+
+function KofiWidget() {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const initializeWidget = () => {
+      if (!window.kofiwidget2 || !containerRef.current) return;
+      window.kofiwidget2.init("Support me on Ko-fi", "#e96858", "A6A42663NV");
+      containerRef.current.innerHTML = window.kofiwidget2.getHTML();
+    };
+    const existingScript = document.getElementById("kofi-widget-script");
+    if (existingScript) {
+      initializeWidget();
+      existingScript.addEventListener("load", initializeWidget);
+      return () => {
+        existingScript.removeEventListener("load", initializeWidget);
+        if (containerRef.current) containerRef.current.innerHTML = "";
+      };
+    }
+
+    const script = document.createElement("script");
+    script.id = "kofi-widget-script";
+    script.type = "text/javascript";
+    script.src = "https://storage.ko-fi.com/cdn/widget/Widget_2.js";
+    script.addEventListener("load", initializeWidget);
+    document.body.appendChild(script);
+
+    return () => {
+      script.removeEventListener("load", initializeWidget);
+      if (containerRef.current) containerRef.current.innerHTML = "";
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="mt-6 rounded-2xl border border-ink/10 bg-coral/10 p-4"
+      aria-label="support me on Ko-fi"
+    />
   );
 }
 
@@ -495,17 +532,6 @@ function SpotifyWidget() {
         loading="lazy"
       />
     </section>
-  );
-}
-
-function Stat({ value, label }) {
-  return (
-    <div>
-      <p className="font-display text-3xl font-bold tracking-tight text-ink">
-        {value}
-      </p>
-      <p className="mt-1 text-sm text-ink/50">{label}</p>
-    </div>
   );
 }
 
@@ -897,6 +923,7 @@ function About({ avatar }) {
                 />
               </a>
             </div>
+            <KofiWidget />
           </div>
         </div>
       </div>
@@ -1014,7 +1041,6 @@ function App() {
     localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
   const avatar = projectData.avatar || fallbackAvatar;
-  const projectCount = projectData.loading ? null : projectData.modrinth.length;
   const page =
     route === "projects" ? (
       <DynamicProjects data={projectData} />
@@ -1025,7 +1051,7 @@ function App() {
     ) : route === "contact" ? (
       <Contact />
     ) : (
-      <Home avatar={avatar} projectCount={projectCount} />
+      <Home />
     );
   return (
     <div className="min-h-screen overflow-hidden">
