@@ -492,7 +492,7 @@ function KofiWidget() {
   return (
     <div
       ref={containerRef}
-      className="mt-6 rounded-2xl border border-ink/10 bg-coral/10 p-4"
+      className="mt-6 flex items-center justify-center rounded-2xl border border-ink/10 bg-coral/10 p-4"
       aria-label="support me on Ko-fi"
     />
   );
