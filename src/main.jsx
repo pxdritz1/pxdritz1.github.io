@@ -439,15 +439,15 @@ function Home() {
               (currentIndex) => (currentIndex + 1) % homeWallpapers.length,
             )
           }
-          className="float-slow group relative rounded-[2rem] border border-ink/10 bg-blush p-5 text-left shadow-soft"
+          className="float-slow group relative rounded-[2rem] border border-ink/10 bg-blush p-4 text-left shadow-soft"
           aria-label="show next wallpaper"
           title="show next wallpaper"
         >
-          <div className="overflow-hidden rounded-[1.4rem] bg-paper">
+          <div className="overflow-hidden rounded-[1.2rem]">
             <img
               src={wallpaper[0]}
               alt={`${wallpaper[1]} wallpaper`}
-              className="aspect-[16/10] w-full object-contain transition duration-700 hover:scale-105"
+              className="block h-auto w-full transition duration-700 hover:scale-105"
               decoding="async"
               fetchPriority="high"
             />
