@@ -555,19 +555,27 @@ function ProjectCard({ project, type }) {
   return (
     <article className="card-enter group flex flex-col rounded-3xl border border-ink/10 bg-white/60 p-5 shadow-soft transition-transform hover:-translate-y-1">
       <div className="mb-8 flex items-start justify-between">
-        <div className="grid h-14 w-14 place-items-center overflow-hidden rounded-2xl bg-mint/20 text-coral">
+        <a
+          href={link}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`open ${title}`}
+          className="grid h-14 w-14 place-items-center overflow-hidden rounded-2xl bg-mint/20 text-coral"
+        >
           {icon ? (
             <img src={icon} alt="" className="h-full w-full object-cover" />
           ) : (
             <Code2 size={25} />
           )}
-        </div>
+        </a>
         <span className="rounded-full bg-mint/20 px-2.5 py-1 font-mono text-xs text-ink/50">
           {isGithub ? "github" : "modrinth"}
         </span>
       </div>
       <h2 className="font-display text-2xl font-bold tracking-tight text-ink">
-        {title}
+        <a href={link} target="_blank" rel="noreferrer">
+          {title}
+        </a>
       </h2>
       <p className="mt-3 flex-1 text-sm leading-6 text-ink/55">{description}</p>
       {isGithub && project.commits?.length > 0 && (
