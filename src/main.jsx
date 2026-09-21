@@ -689,13 +689,22 @@ function Projects() {
             className="card-enter group flex flex-col rounded-3xl border border-ink/10 bg-white/60 p-5 shadow-soft transition-transform hover:-translate-y-1"
           >
             <div className="mb-8 flex items-start justify-between">
-              <img src={icon} alt="" className="h-14 w-14 rounded-2xl" />
+              <a
+                href={`https://${link}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`open ${title}`}
+              >
+                <img src={icon} alt="" className="h-14 w-14 rounded-2xl" />
+              </a>
               <span className="font-mono text-xs text-ink/35">
                 0{index + 1}
               </span>
             </div>
             <h2 className="font-display text-2xl font-bold tracking-tight text-ink">
-              {title}
+              <a href={`https://${link}`} target="_blank" rel="noreferrer">
+                {title}
+              </a>
             </h2>
             <p className="mt-3 flex-1 text-sm leading-6 text-ink/55">{copy}</p>
             <div className="mt-7 flex items-center justify-between border-t border-ink/10 pt-4 text-xs">
@@ -825,7 +834,6 @@ function Gallery() {
           </button>
           <div
             className="gallery-modal-frame max-h-[calc(100vh-2rem)] max-w-[calc(100vw-2rem)]"
-            onClick={(event) => event.stopPropagation()}
           >
             <img
               src={selected.src}
