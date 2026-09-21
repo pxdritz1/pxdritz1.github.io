@@ -826,7 +826,7 @@ function Gallery() {
           <img
             src={selected.src}
             alt={selected.title}
-            className="gallery-modal-image max-h-[88vh] max-w-full rounded-2xl object-contain"
+            className="gallery-modal-image h-auto w-auto max-h-[calc(100vh-2rem)] max-w-[calc(100vw-2rem)] rounded-2xl object-contain"
             onClick={(event) => event.stopPropagation()}
           />
         </div>
