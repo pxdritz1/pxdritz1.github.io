@@ -31,6 +31,11 @@ const galleryItems = [
   ],
   [asset("/assets/dragona.png"), "dragona", "wallpaper"],
   [asset("/assets/jolyne.png"), "jolyne", "wallpaper"],
+  [
+    asset("/assets/jolyne-butterfly-aesthetic.png"),
+    "jolyne butterfly aesthetic",
+    "wallpaper",
+  ],
 ];
 const homeWallpapers = galleryItems.filter(
   ([src]) => !src.endsWith("/cujos.png"),
@@ -442,7 +447,9 @@ function Home() {
             <img
               src={wallpaper[0]}
               alt={`${wallpaper[1]} wallpaper`}
-              className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-105"
+              className="aspect-[16/10] w-full object-contain transition duration-700 hover:scale-105"
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
           <div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm">
