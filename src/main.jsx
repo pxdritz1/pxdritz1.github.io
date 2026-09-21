@@ -809,7 +809,7 @@ function Gallery() {
       </div>
       {selected && (
         <div
-          className={`gallery-modal fixed inset-0 z-50 grid place-items-center bg-ink/85 p-4 ${isClosing ? "gallery-modal-closing" : ""}`}
+          className={`gallery-modal fixed inset-0 z-50 grid place-items-center bg-transparent p-4 ${isClosing ? "gallery-modal-closing" : ""}`}
           onClick={closeGallery}
         >
           <button
@@ -823,12 +823,16 @@ function Gallery() {
           >
             <X size={22} />
           </button>
-          <img
-            src={selected.src}
-            alt={selected.title}
-            className="gallery-modal-image h-auto w-auto max-h-[calc(100vh-2rem)] max-w-[calc(100vw-2rem)] rounded-2xl object-contain"
+          <div
+            className="gallery-modal-frame max-h-[calc(100vh-2rem)] max-w-[calc(100vw-2rem)]"
             onClick={(event) => event.stopPropagation()}
-          />
+          >
+            <img
+              src={selected.src}
+              alt={selected.title}
+              className="gallery-modal-image h-auto w-auto max-h-[calc(100vh-2.75rem)] max-w-[calc(100vw-2.75rem)] object-contain"
+            />
+          </div>
         </div>
       )}
     </main>

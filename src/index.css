@@ -55,6 +55,7 @@ body { transition: background-color 320ms ease, color 320ms ease; }
 .reveal-hidden { opacity: 0; transform: translateY(18px); }
 .reveal-visible { animation: reveal 620ms cubic-bezier(.22, 1, .36, 1) both; }
 .gallery-modal { animation: gallery-modal-in 260ms ease both; }
+.gallery-modal-frame { display: inline-flex; max-height: 100%; max-width: 100%; overflow: hidden; padding: 5px; border: 1px solid color-mix(in srgb, var(--color-ink) 26%, transparent); border-radius: 1rem; background: var(--color-paper); box-shadow: 0 18px 50px rgb(0 0 0 / .18); }
 .gallery-modal-image { animation: gallery-image-in 360ms cubic-bezier(.22, 1, .36, 1) both; }
 .gallery-modal-closing { animation: gallery-modal-out 260ms ease both; }
 .gallery-modal-closing .gallery-modal-image { animation: gallery-image-out 260ms ease both; }
