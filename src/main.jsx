@@ -298,6 +298,15 @@ function Header({ avatar, dark, setDark }) {
               {label}
             </a>
           ))}
+          <a
+            href="https://pxdritz1.github.io/BrainShake/"
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setOpen(false)}
+            className="ml-0 inline-flex items-center justify-center gap-1 rounded-xl bg-yellow px-3 py-2 text-sm font-semibold text-ink shadow-sm hover:bg-coral hover:text-white md:ml-1"
+          >
+            BrainShake <ArrowUpRight size={14} />
+          </a>
           <ThemeToggle dark={dark} setDark={setDark} />
           <a
             href={`https://github.com/${githubUser}`}
@@ -644,6 +653,45 @@ function DynamicProjects({ data }) {
           some live project data could not be loaded right now.
         </p>
       )}
+      <section className="mb-12">
+        <div className="mb-4 flex items-center gap-3">
+          <h2 className="font-display text-2xl font-bold text-ink">
+            featured
+          </h2>
+          <span className="rounded-full bg-yellow px-2.5 py-1 font-mono text-xs font-medium text-ink">
+            new
+          </span>
+        </div>
+        <a
+          href="https://pxdritz1.github.io/BrainShake/"
+          target="_blank"
+          rel="noreferrer"
+          className="group grid overflow-hidden rounded-3xl border border-coral/35 bg-white/60 shadow-soft transition-transform hover:-translate-y-1 lg:grid-cols-[1.35fr_1fr]"
+        >
+          <div className="overflow-hidden bg-profile">
+            <img
+              src={asset("/assets/image copy.png")}
+              alt="BrainShake workspace canvas"
+              className="block aspect-[16/9] h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.02]"
+            />
+          </div>
+          <div className="flex flex-col justify-center p-6 sm:p-8">
+            <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-coral">
+              browser workspace
+            </p>
+            <h2 className="font-display text-3xl font-bold tracking-tight text-ink">
+              BrainShake
+            </h2>
+            <p className="mt-3 max-w-md text-sm leading-6 text-ink/55">
+              a visual workspace for collecting ideas, images, and notes on an
+              infinite canvas.
+            </p>
+            <span className="mt-7 inline-flex items-center gap-1 text-sm font-semibold text-coral">
+              open BrainShake <ExternalLink size={14} />
+            </span>
+          </div>
+        </a>
+      </section>
       <section>
         <h2 className="mb-4 font-display text-2xl font-bold text-ink">
           modrinth
