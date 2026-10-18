@@ -18,10 +18,10 @@ export default function About({ avatar }) {
           <RevealItem className="rounded-3xl bg-profile p-6 text-ink shadow-soft">
             <Avatar
               src={avatar}
-              className="h-24 w-24 rounded-[1.5rem] object-cover ring-4 ring-coral"
+              className="h-24 w-24 rounded-[1.5rem] object-cover ring-4 ring-lavender"
             />
             <p className="mt-12 font-display text-3xl font-bold leading-tight">
-              hello, i'm chloe, nice to meet you!!!<span className="text-coral">
+              hello, i'm chloe, nice to meet you!!!<span className="text-lavender">
                 .
               </span>
             </p>
@@ -61,7 +61,7 @@ export default function About({ avatar }) {
               href="https://namemc.com/profile/pxdritz"
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-coral"
+              className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-lavender"
             >
               view NameMC <ExternalLink size={13} />
             </a>

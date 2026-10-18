@@ -35,7 +35,7 @@ export default function Contact() {
     [
       "ko-fi",
       "pxdritz1",
-      "support the little studio",
+      "support the little dev girl : ) ",
       <Sparkles size={21} />,
       "https://ko-fi.com/pxdritz1",
     ],
@@ -62,9 +62,9 @@ export default function Contact() {
             href={link}
             target="_blank"
             rel="noreferrer"
-            className="group flex items-center gap-4 rounded-3xl border border-ink/10 bg-white/60 p-5 hover-surface hover:border-coral"
+            className="group flex items-center gap-4 rounded-3xl border border-ink/10 bg-white/60 p-5 hover-surface hover:border-lavender"
           >
-            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-yellow text-ink">
+            <span className="grid h-12 w-12 place-items-center rounded-2xl bg-lilac text-ink">
               {icon}
             </span>
             <span className="flex-1">
@@ -80,15 +80,15 @@ export default function Contact() {
           </RevealItem>
         ))}
       </div>
-      <RevealItem index={5} className="mt-8 flex items-start gap-3 rounded-3xl border border-dashed border-coral/35 bg-coral/5 p-5 text-sm leading-6 text-ink/55">
-        <MessageCircle size={18} className="mt-1 shrink-0 text-coral" />
+      <RevealItem index={5} className="mt-8 flex items-start gap-3 rounded-3xl border border-dashed border-lavender/35 bg-lavender/5 p-5 text-sm leading-6 text-ink/55">
+        <MessageCircle size={18} className="mt-1 shrink-0 text-lavender" />
         <span>
           code's café is a brazilian programming and tech community. portuguese
           is the main language, but most people can also speak english.
         </span>
       </RevealItem>
-      <RevealItem index={6} className="mt-4 flex items-center gap-3 rounded-3xl border border-dashed border-coral/35 bg-coral/5 p-5 text-sm text-ink/55">
-        <Mail size={18} className="text-coral" /> usually replies within a few
+      <RevealItem index={6} className="mt-4 flex items-center gap-3 rounded-3xl border border-dashed border-lavender/35 bg-lavender/5 p-5 text-sm text-ink/55">
+        <Mail size={18} className="text-lavender" /> usually replies within a few
         hours, give or take a snack break.
       </RevealItem>
     </section>

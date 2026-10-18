@@ -29,7 +29,7 @@ export default function Projects({ data }) {
         copy="everything published on modrinth and github."
       />
       {data.error && (
-        <p className="mb-6 rounded-2xl bg-coral/10 p-4 text-sm text-ink/60">
+        <p className="mb-6 rounded-2xl bg-lavender/10 p-4 text-sm text-ink/60">
           some live project data could not be loaded right now.
         </p>
       )}

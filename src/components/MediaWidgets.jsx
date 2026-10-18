@@ -7,7 +7,7 @@ export function KofiWidget() {
   useEffect(() => {
     const initializeWidget = () => {
       if (!window.kofiwidget2 || !containerRef.current) return;
-      window.kofiwidget2.init("Support me on Ko-fi", "#e96858", "A6A42663NV");
+      window.kofiwidget2.init("Support me on Ko-fi", "#78649f", "A6A42663NV");
       containerRef.current.innerHTML = window.kofiwidget2.getHTML();
     };
     const existingScript = document.getElementById("kofi-widget-script");
@@ -36,7 +36,7 @@ export function KofiWidget() {
   return (
     <div
       ref={containerRef}
-      className="mt-6 flex items-center justify-center rounded-2xl border border-ink/10 bg-coral/10 p-4"
+      className="mt-6 flex items-center justify-center rounded-2xl border border-ink/10 bg-lavender/10 p-4"
       aria-label="support me on Ko-fi"
     />
   );

@@ -33,7 +33,7 @@ export default function Home({ avatar, initialSection = "home" }) {
           <WordReveal
             lines={[
               { text: "soft ideas," },
-              { text: "sharp tools.", className: "text-coral" },
+              { text: "sharp tools.", className: "text-lavender" },
             ]}
             className="max-w-4xl font-display text-6xl font-bold leading-[0.9] tracking-[-0.075em] text-ink sm:text-8xl"
             startDelay={450}
@@ -48,7 +48,7 @@ export default function Home({ avatar, initialSection = "home" }) {
               index={0}
               delayOffset={1690}
               href="#projects"
-              className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-coral"
+              className="inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-semibold text-paper hover:bg-lavender"
             >
               see my projects! <ChevronRight size={16} />
             </RevealItem>
@@ -57,7 +57,7 @@ export default function Home({ avatar, initialSection = "home" }) {
               index={1}
               delayOffset={1690}
               href="#gallery"
-              className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral"
+              className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-lavender hover:text-lavender"
             >
               browse the gallery <ImageIcon size={16} />
             </RevealItem>
@@ -66,7 +66,7 @@ export default function Home({ avatar, initialSection = "home" }) {
               index={2}
               delayOffset={1690}
               href="#about"
-              className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-coral hover:text-coral"
+              className="inline-flex items-center gap-2 rounded-xl border border-ink/15 bg-white/50 px-5 py-3 text-sm font-semibold text-ink hover:border-lavender hover:text-lavender"
             >
               about <ArrowUpRight size={16} />
             </RevealItem>
@@ -97,7 +97,7 @@ export default function Home({ avatar, initialSection = "home" }) {
           </div>
           <div className="flex items-center justify-between px-2 pb-1 pt-5 text-sm">
             <span className="font-semibold text-ink">{wallpaper[1]}</span>
-            <span className="flex items-center gap-1 text-ink/45 transition-colors group-hover:text-coral">
+            <span className="flex items-center gap-1 text-ink/45 transition-colors group-hover:text-lavender">
               next wallpaper <ChevronRight size={16} />
             </span>
           </div>

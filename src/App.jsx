@@ -30,8 +30,8 @@ export default function App() {
     <div className="min-h-screen overflow-hidden">
       <div className="pointer-events-none fixed inset-0 -z-10 bg-paper">
         <div className="background-dots absolute inset-0" />
-        <div className="absolute -left-32 top-40 h-80 w-80 rounded-full bg-yellow/30 blur-3xl dark:hidden" />
-        <div className="absolute -right-24 top-[28rem] h-96 w-96 rounded-full bg-coral/10 blur-3xl dark:hidden" />
+        <div className="absolute -left-32 top-40 h-80 w-80 rounded-full bg-lilac/70 blur-3xl dark:hidden" />
+        <div className="absolute -right-24 top-[28rem] h-96 w-96 rounded-full bg-lavender/10 blur-3xl dark:hidden" />
       </div>
       <Navbar avatar={avatar} dark={dark} setDark={setDark} />
       <div
