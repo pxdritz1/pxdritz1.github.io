@@ -9,9 +9,9 @@ export default function SmallProject({ icon, title, copy, link, index = 0 }) {
       href={link}
       target="_blank"
       rel="noreferrer"
-      className="flex items-center gap-4 rounded-3xl border border-ink/10 bg-yellow/25 p-5 hover-surface"
+      className="flex items-center gap-4 rounded-3xl border border-ink/10 bg-lilac/50 p-5 hover-surface"
     >
-      <span className="grid h-11 w-11 place-items-center rounded-2xl bg-yellow text-ink">
+      <span className="grid h-11 w-11 place-items-center rounded-2xl bg-lilac text-ink">
         {icon}
       </span>
       <span className="flex-1">

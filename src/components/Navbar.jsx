@@ -41,10 +41,10 @@ export default function Navbar({ avatar, dark, setDark }) {
         >
           <Avatar
             src={avatar}
-            className="h-7 w-7 rounded-lg object-cover ring-2 ring-coral/20"
+            className="h-7 w-7 rounded-lg object-cover ring-2 ring-lavender/20"
           />
           <span>
-            pxdritz<span className="text-coral">.</span>
+            pxdritz<span className="text-lavender">.</span>
           </span>
         </RevealItem>
         <button
@@ -80,7 +80,7 @@ export default function Navbar({ avatar, dark, setDark }) {
             target="_blank"
             rel="noreferrer"
             onClick={() => setOpen(false)}
-            className="ml-0 inline-flex items-center justify-center gap-1 rounded-xl bg-yellow px-3 py-2 text-sm font-semibold text-ink shadow-sm hover:bg-coral hover:text-white md:ml-1"
+            className="ml-0 inline-flex items-center justify-center gap-1 rounded-xl bg-lilac px-3 py-2 text-sm font-semibold text-ink shadow-sm hover:bg-lavender hover:text-white md:ml-1"
           >
             BrainShake <ArrowUpRight size={14} />
           </RevealItem>
@@ -90,7 +90,7 @@ export default function Navbar({ avatar, dark, setDark }) {
             href={`https://github.com/${githubUser}`}
             target="_blank"
             rel="noreferrer"
-            className="ml-1 inline-flex items-center gap-2 rounded-xl bg-coral px-3 py-2 text-sm font-semibold text-white hover:bg-coral-dark"
+            className="ml-1 inline-flex items-center gap-2 rounded-xl bg-lavender px-3 py-2 text-sm font-semibold text-white hover:bg-lavender-dark"
           >
             github <ArrowUpRight size={14} />
           </RevealItem>

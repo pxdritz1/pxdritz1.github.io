@@ -24,7 +24,7 @@ export default function ProjectCard({ project, type, index = 0 }) {
           target="_blank"
           rel="noreferrer"
           aria-label={`open ${title}`}
-          className="grid h-14 w-14 place-items-center overflow-hidden rounded-2xl bg-mint/20 text-coral"
+          className="grid h-14 w-14 place-items-center overflow-hidden rounded-2xl bg-mint/20 text-lavender"
         >
           {icon ? (
             <RevealImage src={icon} alt="" className="h-full w-full object-cover" />
@@ -65,7 +65,7 @@ export default function ProjectCard({ project, type, index = 0 }) {
           href={link}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 font-semibold text-coral"
+          className="inline-flex items-center gap-1 font-semibold text-lavender"
         >
           open <ExternalLink size={13} />
         </a>
