@@ -41,24 +41,10 @@ export default function Contact() {
     ],
     [
       "server",
-      "px's server",
-      "a brazilian community for friends and minecraft",
-      <MessageCircle size={21} />,
-      "https://discord.gg/fMkj87H2ds",
-    ],
-    [
-      "server",
       "code's café",
       "a brazilian programming and tech community",
       <MessageCircle size={21} />,
       "https://discord.gg/BDKNDHvjrD",
-    ],
-    [
-      "server",
-      "servidor dos programadores",
-      "a brazilian server for people who code",
-      <MessageCircle size={21} />,
-      "https://discord.gg/programador",
     ],
   ];
   return (
@@ -94,14 +80,14 @@ export default function Contact() {
           </RevealItem>
         ))}
       </div>
-      <RevealItem index={7} className="mt-8 flex items-start gap-3 rounded-3xl border border-dashed border-coral/35 bg-coral/5 p-5 text-sm leading-6 text-ink/55">
+      <RevealItem index={5} className="mt-8 flex items-start gap-3 rounded-3xl border border-dashed border-coral/35 bg-coral/5 p-5 text-sm leading-6 text-ink/55">
         <MessageCircle size={18} className="mt-1 shrink-0 text-coral" />
         <span>
-          all three servers above are brazilian communities. portuguese is the
-          main language, and most people can also speak english.
+          code's café is a brazilian programming and tech community. portuguese
+          is the main language, but most people can also speak english.
         </span>
       </RevealItem>
-      <RevealItem index={8} className="mt-4 flex items-center gap-3 rounded-3xl border border-dashed border-coral/35 bg-coral/5 p-5 text-sm text-ink/55">
+      <RevealItem index={6} className="mt-4 flex items-center gap-3 rounded-3xl border border-dashed border-coral/35 bg-coral/5 p-5 text-sm text-ink/55">
         <Mail size={18} className="text-coral" /> usually replies within a few
         hours, give or take a snack break.
       </RevealItem>
