@@ -35,7 +35,7 @@ export default function Contact() {
     [
       "ko-fi",
       "pxdritz1",
-      "support the little studio",
+      "support the little dev :p",
       <Sparkles size={21} />,
       "https://ko-fi.com/pxdritz1",
     ],
