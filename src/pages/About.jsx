@@ -26,7 +26,8 @@ export default function About({ avatar }) {
               </span>
             </p>
             <p className="mt-4 text-sm leading-6 text-ink/60">
-              coo at edonme studios, maker of mods, tools, and art.
+              i'm a woman in tech, coo at edonme studios, and i make mods,
+              tools, and art.
             </p>
             <div className="mt-8 border-t border-ink/10 pt-6 text-sm leading-6 text-ink/65">
               <p>

@@ -39,8 +39,8 @@ export default function Home({ avatar, initialSection = "home" }) {
             startDelay={450}
           />
           <RevealItem index={0} delayOffset={1320} className="mt-8 max-w-xl text-lg leading-8 text-ink/60">
-            developer and artist making minecraft mods, tools, and
-            wallpapers with care.
+            i'm chloe, a woman developer and artist making minecraft mods,
+            tools, and wallpapers with care.
           </RevealItem>
           <div className="mt-9 flex flex-wrap gap-3">
             <RevealItem
