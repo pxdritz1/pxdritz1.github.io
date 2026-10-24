@@ -1,7 +1,3 @@
-# pxdritz1.github.io
-
-my corner on the internet
-
 <p align="center">
   <img src="https://media.tenor.com/ftnpXT_jgNQAAAAj/jolyne-jolyne-cujoh.gif" alt="jolyne cujoh waving" width="280">
 </p>
