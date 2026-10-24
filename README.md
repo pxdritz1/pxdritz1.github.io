@@ -1,6 +1,6 @@
-# pxdritz.github.io
+# pxdritz1.github.io
 
-> a small corner of the internet for code, art, minecraft, and a little bit of chaos.
+my corner on the internet
 
 <p align="center">
   <img src="https://media.tenor.com/ftnpXT_jgNQAAAAj/jolyne-jolyne-cujoh.gif" alt="jolyne cujoh waving" width="280">
@@ -8,7 +8,7 @@
 
 ## about
 
-this is pxdritz's personal website: a calm place to share projects, wallpapers, experiments, and things i enjoy making.
+this is my personal website: a place to share my projects, wallpapers, experiments, and things i enjoy making.
 
 i work with minecraft mods, development tools, and commissioned artwork. the site is intentionally lightweight, playful, and a little cozy.
 
