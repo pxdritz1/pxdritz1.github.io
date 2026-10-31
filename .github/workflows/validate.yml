@@ -1,0 +1,35 @@
+name: validate site build
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: install dependencies
+        run: npm ci
+      - name: build and prerender
+        run: npm run build
+      - name: verify generated SEO pages
+        run: |
+          test -s dist/index.html
+          test -s dist/projects/index.html
+          test -s dist/gallery/index.html
+          test -s dist/about/index.html
+          test -s dist/contact/index.html
+          test -s dist/sitemap.xml
+          grep -q "Chloe" dist/index.html
+          grep -q "BrainShake" dist/projects/index.html
