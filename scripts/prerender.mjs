@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 
 const dist = join(process.cwd(), "dist");
 const baseUrl = "https://pxdritz1.github.io";
@@ -67,7 +67,7 @@ const pages = {
   },
   about: {
     title: "About Chloe (pxdritz / pxotitas)",
-    description: "Learn about Chloe, a Brazilian woman developer and artist known as pxdritz and pxotitas, working with Minecraft, software, and digital art.",
+    description: "Learn about Chloe, a woman developer and artist known as pxdritz and pxotitas, working with Minecraft, software, and digital art.",
     body: `<main><p class="eyebrow">about me</p><h1>Hi, I'm Chloe.</h1>
       <p>I'm a woman in tech, developer and artist, and COO at EdonMe Studios. Online, I'm known as <strong>pxdritz</strong>, <strong>pxotitas</strong>, and <strong>px</strong>.</p>
       <p>I work with Java, Kotlin, Go, and Rust to build Minecraft mods and useful tools. I also make wallpapers, digital illustrations, and commissioned artwork.</p>
