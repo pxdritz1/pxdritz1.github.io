@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fafafa;
+  --color-surface: #ffffff;
+  --color-ink: #1d1d1f;
+  --color-muted: #6e6e73;
+  --color-line: #e5e5e7;
+  --color-accent: #6e5b88;
+  --font-sans: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
+  --spacing-page: 2rem;
+  --spacing-section: 6rem;
+  --radius-panel: 2rem;
+  --shadow-panel: 0 16px 40px rgb(0 0 0 / 0.06), 0 2px 6px rgb(0 0 0 / 0.03);
+  --breakpoint-tablet: 53.125rem;
+}
+
+:root {
+  color-scheme: light;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+}
+
+button,
+a {
+  font: inherit;
+  touch-action: manipulation;
+}
+
+button {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,22 @@
+---
+description: parede-da-ia — art direction and front-end engineering router
+alwaysApply: true
+---
+
+<!-- parede-da-ia:start -->
+## parede-da-ia — art direction and front-end engineering
+
+Before any front-end, UI/UX, art direction, code review, commit, prompt or data/AI pipeline task,
+read the router and follow its instructions (it says which modules to load):
+
+- Local router: `/home/codespace/.parede-da-ia/prompts/router.md`
+- Remote fallback: https://raw.githubusercontent.com/AnThophicous/parede-da-ia/main/prompts/router.md
+
+Tools (on the PATH via `npm link`, or `node "/home/codespace/.parede-da-ia/toolkit/bin/parede.js" <command>`):
+- see and act: `web-url-fetch` · `web-wait-page-load` · `web-wait` · `web-control` · `web-eval` ·
+  `web-screenshot` · `web-record-frames` · `web-close`
+- measure: `web-scrap` · `web-motion` · `web-interactions` · `web-audit` · `web-tokens` · `web-diff` · `media-frames`
+- serve: `web-serve` — help: `parede help`.
+
+Ready-made effect recipes (Hover Font, text morph, magnetic…): `/home/codespace/.parede-da-ia/library/`.
+<!-- parede-da-ia:end -->
