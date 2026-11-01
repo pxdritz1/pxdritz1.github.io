@@ -36,3 +36,20 @@
 @media(min-width:601px) and (max-width:850px){.dock{gap:8px}}
 @media(max-width:600px){.project-row:hover,.social-list>a:hover{padding-left:2px}.project-preview:hover img{transform:translateY(-2px)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.js-motion [data-reveal]{opacity:1;transform:none}.dock-item{transform:none!important;will-change:auto}.hero-art:hover>img,.project-preview:hover img,.button:hover,.round-button:hover{transform:none}}
+
+.live-projects{margin-top:64px}
+.live-projects-heading{margin-bottom:20px}
+.live-projects-heading h3{margin-top:12px;font-size:32px}
+.live-projects-label{margin:28px 0 8px;font-size:18px;font-weight:550;color:var(--muted)}
+.live-projects-status,.live-projects-error{padding:18px 0;color:var(--muted);font-size:18px}
+.live-projects-error{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.live-projects-error p{margin:0}
+.live-projects-error button{min-height:44px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:16px;transition:background 180ms,color 180ms}
+.live-projects-error button:hover{background:var(--ink);color:var(--surface)}
+.live-project-row .project-number{display:grid;place-items:center;width:36px;height:36px;flex:none;padding:0;align-self:center;overflow:hidden;border-radius:8px;background:#f5f5f7}
+.live-project-row .project-number img{max-width:100%;max-height:100%;object-fit:contain}
+.live-project-row>div{min-width:0;flex:1}
+.live-project-row .project-commits{display:grid;gap:4px;margin:12px 0 0;padding:10px 0 0;border-top:1px solid var(--line);list-style:none;color:var(--muted);font-size:14px}
+.project-commits li{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:850px){.live-projects{margin-top:48px}.live-project-row .project-technology{display:none}}
+@media(max-width:600px){.live-projects-heading h3{font-size:28px}.live-projects-error{align-items:flex-start;flex-direction:column}.live-projects-error button{align-self:flex-end}}
