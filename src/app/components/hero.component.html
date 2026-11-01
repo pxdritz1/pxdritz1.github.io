@@ -1,0 +1,39 @@
+<section id="home" class="hero" data-chapter data-bg="#fafafa" aria-labelledby="hero-title">
+  <div class="intro">
+    <img src="assets/avatar.jpg" alt="" width="40" height="40" fetchpriority="high" />
+    <span>Chloe <span class="muted">/ pxdritz</span></span>
+    <span class="intro-pronouns">she / her</span>
+  </div>
+  <h1 id="hero-title">soft ideas.<br /><span>sharp tools.</span></h1>
+  <p class="hero-description">I’m a developer and artist making Minecraft mods,<br class="desktop-break" /> useful little tools, and things worth looking at.</p>
+  <div class="hero-actions">
+    <a class="button button-primary" href="#work">View selected work <svg class="icon" aria-hidden="true"><use href="#next" /></svg></a>
+    <a class="text-link" href="#about">A little about me <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg></a>
+  </div>
+  <div class="hero-art" [attr.data-ink]="treatment()">
+    <img
+      id="hero-image"
+      [src]="currentArtwork().src"
+      [alt]="currentArtwork().alt"
+      width="1586"
+      height="992"
+      fetchpriority="high"
+    />
+    <button
+      id="shuffle-art"
+      class="round-button"
+      type="button"
+      aria-label="Show next artwork"
+      [attr.aria-busy]="busy()"
+      (click)="showNextArtwork()"
+    ><svg class="icon" aria-hidden="true"><use href="#next" /></svg></button>
+  </div>
+  <div class="art-toolbar">
+    <div class="art-credit"><span class="credit-index">{{ indexLabel() }}</span><span>{{ currentArtwork().title }}</span></div>
+    <div class="ink-control" role="group" aria-label="Artwork treatment">
+      <button type="button" [attr.aria-pressed]="treatment() === 'original'" (click)="setTreatment('original')">Original</button>
+      <button type="button" [attr.aria-pressed]="treatment() === 'poster'" (click)="setTreatment('poster')">Ink study</button>
+    </div>
+  </div>
+  <p class="sr-only" role="status" aria-live="polite">{{ errorMessage() }}</p>
+</section>

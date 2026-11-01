@@ -2,38 +2,3 @@
   display: block;
   min-height: 100vh;
 }
-
-.migration-shell {
-  display: grid;
-  min-height: 100vh;
-  align-content: center;
-  justify-items: center;
-  padding: 64px 24px;
-  text-align: center;
-}
-
-.eyebrow,
-.description {
-  margin: 0;
-  color: var(--color-muted);
-}
-
-h1 {
-  margin: 28px 0 0;
-  font-size: clamp(58px, 9vw, 112px);
-  font-weight: 590;
-  line-height: 1.01;
-  letter-spacing: -0.065em;
-}
-
-h1 span {
-  color: #85858b;
-  font-weight: 500;
-}
-
-.description {
-  max-width: 620px;
-  margin-top: 28px;
-  font-size: 22px;
-  line-height: 1.5;
-}

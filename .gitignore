@@ -4,3 +4,4 @@ dist
 .angular
 out-tsc
 coverage
+.parede/
