@@ -51,5 +51,10 @@
 .live-project-row>div{min-width:0;flex:1}
 .live-project-row .project-commits{display:grid;gap:4px;margin:12px 0 0;padding:10px 0 0;border-top:1px solid var(--line);list-style:none;color:var(--muted);font-size:14px}
 .project-commits li{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dialog-image-wrap{position:relative;display:grid;min-height:180px;place-items:center}
+.dialog-status{position:absolute;z-index:1;margin:0;padding:12px 16px;border-radius:999px;background:#ffffffed;color:var(--muted);font-size:16px}
+.dialog-image-wrap[data-state=loading] .dialog-image{opacity:.25}
+.dialog-image-wrap[data-state=error] .dialog-image{visibility:hidden}
+.dialog-image{transition:opacity 180ms ease}
 @media(max-width:850px){.live-projects{margin-top:48px}.live-project-row .project-technology{display:none}}
 @media(max-width:600px){.live-projects-heading h3{font-size:28px}.live-projects-error{align-items:flex-start;flex-direction:column}.live-projects-error button{align-self:flex-end}}
