@@ -27,6 +27,18 @@ export const galleryArtworks: GalleryArtwork[] = [
     alt: "Dragona, ink drawing on warm paper",
   },
   {
+    src: "assets/dragona_cute.png",
+    title: "Dragona, dressed in green",
+    type: "Character art",
+    alt: "Colorful portrait artwork of Dragona in green clothing on a patterned yellow background",
+  },
+  {
+    src: "assets/jojo.png",
+    title: "JoJo collection",
+    type: "Wallpaper",
+    alt: "Red-toned JoJo character collage wallpaper",
+  },
+  {
     src: "assets/jolyne.png",
     title: "Jolyne",
     type: "Wallpaper",
@@ -43,5 +55,17 @@ export const galleryArtworks: GalleryArtwork[] = [
     title: "Abstract",
     type: "Wallpaper",
     alt: "Abstract wallpaper from Chloe's portfolio",
+  },
+  {
+    src: "assets/skin.png",
+    title: "Pixel character",
+    type: "Minecraft skin",
+    alt: "Pixel-art Minecraft character with green hair and dark clothing",
+  },
+  {
+    src: "assets/vectorbloom_lain.png",
+    title: "Lain, in blue",
+    type: "Character art",
+    alt: "Blue and violet character wallpaper featuring Lain",
   },
 ];
