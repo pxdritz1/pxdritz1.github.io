@@ -1,0 +1,19 @@
+<section id="contact" class="contact" data-chapter data-bg="#fafafa" aria-labelledby="contact-title">
+  <span class="eyebrow">04 / A friendly wave</span>
+  <h2 id="contact-title">Let’s make<br /><span>something nice.</span></h2>
+  <p>For a project, an art commission,<br />or just a hello.</p>
+  <button class="button button-primary copy-discord" type="button" [class.is-copied]="copied()" (click)="copyDiscord()">
+    <img src="assets/discord.svg" alt="" width="23" height="23" />pxotitas
+    <svg class="icon" aria-hidden="true"><use [attr.href]="copied() ? '#next' : '#copy'" /></svg>
+  </button>
+  <div class="social-list">
+    @for (social of socialLinks; track social.name) {
+      <a [href]="social.href" target="_blank" rel="noreferrer">
+        <img [src]="'assets/' + social.icon" alt="" width="24" height="24" />
+        <span>{{ social.name }}</span>
+        <span class="social-detail">{{ social.description }}</span>
+        <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg>
+      </a>
+    }
+  </div>
+</section>
