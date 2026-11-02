@@ -1,0 +1,44 @@
+<header class="site-header">
+  <a class="wordmark" href="#home" aria-label="pxdritz, home" (click)="closeMenus()">pxdritz<span>.</span></a>
+  <nav class="desktop-nav" aria-label="Main navigation">
+    <div class="nav-dropdown">
+      <button
+        #workToggle
+        id="work-menu-toggle"
+        class="nav-link"
+        type="button"
+        aria-controls="work-submenu"
+        [attr.aria-expanded]="workMenuOpen()"
+        (click)="toggleWorkMenu()"
+      >
+        Explore <svg class="icon" aria-hidden="true"><use href="#chevron" /></svg>
+      </button>
+      <div id="work-submenu" class="submenu" [hidden]="!workMenuOpen()">
+        <a href="#about" (click)="closeMenus()"><span>01</span> About Chloe <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg></a>
+        <a href="#work" (click)="closeMenus()"><span>02</span> Selected work <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg></a>
+        <a href="#art" (click)="closeMenus()"><span>03</span> Art &amp; wallpapers <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg></a>
+      </div>
+    </div>
+    <a class="nav-link" href="#work" (click)="closeMenus()">Work</a>
+    <a class="nav-link" href="#about" (click)="closeMenus()">About</a>
+    <a class="nav-link nav-contact" href="#contact" (click)="closeMenus()">Say hello <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg></a>
+  </nav>
+  <button
+    #menuToggle
+    id="menu-toggle"
+    class="menu-toggle"
+    type="button"
+    aria-label="Open navigation"
+    aria-controls="site-menu"
+    [attr.aria-expanded]="mobileMenuOpen()"
+    (click)="toggleMobileMenu()"
+  ><span></span><span></span></button>
+</header>
+
+<nav id="site-menu" class="mobile-menu" aria-label="Expanded navigation" [hidden]="!mobileMenuOpen()">
+  <a href="#about" (click)="closeMenus()">About Chloe <span>01</span></a>
+  <a href="#work" (click)="closeMenus()">Selected work <span>02</span></a>
+  <a href="#art" (click)="closeMenus()">Art &amp; wallpapers <span>03</span></a>
+  <a href="#contact" (click)="closeMenus()">Say hello <span>04</span></a>
+  <p>Chloe / pxdritz · she/her</p>
+</nav>
