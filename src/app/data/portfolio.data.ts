@@ -1,5 +1,6 @@
 export interface Artwork {
   src: string;
+  displaySrc: string;
   alt: string;
   title: string;
   credit: string;
@@ -15,18 +16,21 @@ export interface DockTool {
 export const heroArtworks: Artwork[] = [
   {
     src: "assets/jolyne-butterfly-aesthetic.png",
+    displaySrc: "assets/optimized/jolyne-butterfly-aesthetic.webp",
     alt: "Jolyne and butterflies, artwork by Chloe",
     title: "Jolyne, through my lens.",
     credit: "Jolyne butterfly aesthetic",
   },
   {
     src: "assets/jolyne.png",
+    displaySrc: "assets/optimized/jolyne.webp",
     alt: "Jolyne, artwork by Chloe",
     title: "Jolyne, in another light.",
     credit: "Jolyne",
   },
   {
     src: "assets/cujos.png",
+    displaySrc: "assets/optimized/cujos.webp",
     alt: "Cujos, a character study by Chloe",
     title: "Cujos, a character study.",
     credit: "Cujos",

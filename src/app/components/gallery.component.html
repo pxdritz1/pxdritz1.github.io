@@ -14,7 +14,7 @@
         #tile
       >
         <span class="art-image">
-          <img [src]="artwork.src" [alt]="artwork.alt" width="1672" height="941" loading="lazy" />
+          <img [src]="artwork.displaySrc" [alt]="artwork.alt" width="1672" height="941" loading="lazy" />
           <span class="art-open"><svg class="icon" aria-hidden="true"><use href="#expand" /></svg></span>
         </span>
         <span class="art-caption"><span>{{ artwork.title }}</span><span>{{ artwork.type }} <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg></span></span>
@@ -36,7 +36,7 @@
     <div class="dialog-image-wrap" [attr.data-state]="imageError() ? 'error' : loading() ? 'loading' : 'ready'">
       @if (loading()) { <p class="dialog-status" role="status">Loading artwork…</p> }
       @if (imageError()) { <p class="dialog-status" role="alert">This image could not be loaded. Please try another artwork.</p> }
-      <img class="dialog-image" [src]="artwork.src" [alt]="artwork.alt" (load)="onImageLoad()" (error)="onImageError()" />
+      <img class="dialog-image" [src]="artwork.displaySrc" [alt]="artwork.alt" (load)="onImageLoad()" (error)="onImageError()" />
     </div>
     <div class="dialog-bottom">
       <span>Chloe / pxdritz</span>

@@ -36,7 +36,7 @@ export class HeroComponent {
         const image = new Image();
         image.onload = () => resolve();
         image.onerror = () => reject(new Error("Artwork failed to load"));
-        image.src = nextArtwork.src;
+        image.src = nextArtwork.displaySrc;
       });
       this.artworkIndex.set(nextIndex);
     } catch {

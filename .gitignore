@@ -5,3 +5,4 @@ dist
 out-tsc
 coverage
 .parede/
+public/assets/optimized/
