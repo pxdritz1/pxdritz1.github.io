@@ -21,7 +21,7 @@ export class HeroComponent {
   }
 
   indexLabel(): string {
-    return `${String(this.artworkIndex() + 1).padStart(2, "0")} / 03`;
+    return `${String(this.artworkIndex() + 1).padStart(2, "0")} / ${String(this.artworks.length).padStart(2, "0")}`;
   }
 
   async showNextArtwork(): Promise<void> {

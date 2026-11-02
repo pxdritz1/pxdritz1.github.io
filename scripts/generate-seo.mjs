@@ -36,16 +36,11 @@ const pages = [
     description: "Character artwork, wallpapers, poster studies, and visual experiments by Chloe (pxdritz).",
     heading: "Another side of me.",
     body: `<ul>
-      <li><a href="/assets/cujos.png">Cujos — character study</a></li>
-      <li><a href="/assets/jolyne-butterfly-aesthetic.png">Jolyne — butterfly wallpaper</a></li>
-      <li><a href="/assets/dragona.png">Dragona — wallpaper</a></li>
-      <li><a href="/assets/dragona_cute.png">Dragona, dressed in green — character art</a></li>
-      <li><a href="/assets/jojo.png">JoJo collection — wallpaper</a></li>
-      <li><a href="/assets/jolyne.png">Jolyne — wallpaper</a></li>
-      <li><a href="/assets/unitedtrans.png">United Trans — poster study</a></li>
       <li><a href="/assets/6e86120b-b056-46f7-978f-c517e3c1884e.png">Abstract — wallpaper</a></li>
-      <li><a href="/assets/skin.png">Pixel character — Minecraft skin</a></li>
-      <li><a href="/assets/vectorbloom_lain.png">Lain, in blue — character art</a></li>
+      <li><a href="/assets/unitedtrans.png">United Trans — poster study</a></li>
+      <li><a href="/assets/dragona.png">Dragona — wallpaper</a></li>
+      <li><a href="/assets/jolyne-butterfly-aesthetic.png">Jolyne butterfly — wallpaper</a></li>
+      <li><a href="/assets/jolyne.png">Jolyne — wallpaper</a></li>
     </ul>`,
     section: "art",
   },
@@ -89,7 +84,7 @@ for (const page of pages) {
     <meta name="author" content="Chloe (pxdritz)">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="${canonical}">
-    <link rel="icon" type="image/png" href="/assets/oc-icon.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
     <meta property="og:site_name" content="pxdritz">
     <meta property="og:type" content="website">
     <meta property="og:title" content="${page.title}">

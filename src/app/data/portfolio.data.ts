@@ -28,13 +28,6 @@ export const heroArtworks: Artwork[] = [
     title: "Jolyne, in another light.",
     credit: "Jolyne",
   },
-  {
-    src: "assets/cujos.png",
-    displaySrc: "assets/optimized/cujos.webp",
-    alt: "Cujos, a character study by Chloe",
-    title: "Cujos, a character study.",
-    credit: "Cujos",
-  },
 ];
 
 export const dockTools: DockTool[] = [

@@ -1,22 +1,18 @@
-import { mkdir, stat } from "node:fs/promises";
+import { mkdir, rm, stat } from "node:fs/promises";
 import { join } from "node:path";
 import sharp from "sharp";
 
 const assets = join(process.cwd(), "public", "assets");
 const output = join(assets, "optimized");
 const artworkFiles = [
-  "cujos.png",
   "jolyne-butterfly-aesthetic.png",
   "dragona.png",
-  "dragona_cute.png",
-  "jojo.png",
   "jolyne.png",
   "unitedtrans.png",
   "6e86120b-b056-46f7-978f-c517e3c1884e.png",
-  "skin.png",
-  "vectorbloom_lain.png",
 ];
 
+await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 const conversions = await Promise.all(artworkFiles.map(async (filename) => {
   const source = join(assets, filename);

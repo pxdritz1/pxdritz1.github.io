@@ -1,13 +1,5 @@
-# pxdritz.github.io
+# Public assets
 
-oiê :3
+Original artwork and static media used by the Angular portfolio live here. The selected gallery is defined in `src/app/data/gallery.data.ts`; `npm run build` generates display-sized WebP files under `optimized/` while preserving the original files for downloads.
 
-esse é meu cantinho na internet, feito com carinho, pixels e um pouquinho de caos ✦
-
-<p align="center">
-  <img src="https://media.tenor.com/ftnpXT_jgNQAAAAj/jolyne-jolyne-cujoh.gif" alt="jolyne cujoh acenando" width="280">
-</p>
-
-por aqui você pode conhecer um pouco mais sobre mim, meus projetinhos e as coisas que eu gosto ♡
-
-sinta-se à vontade para explorar — espero que você encontre algo legal por aqui, hehe :3
+Artwork and third-party media may have separate usage terms from the source-code license.
